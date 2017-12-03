@@ -1,2 +1,4 @@
 # uRanking
-O mesmo uRanking que antes era propriet·rio, mas agora, È open-source e gratuito!
+Um plugin de rankup que possibilita que os jogadores upem de rank sem perder o cargo de VIP/Staff!
+
+√â o mesmo uRanking que antes era propriet√°rio, mas agora, √© open-source e gratuito!
