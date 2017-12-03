@@ -1,0 +1,12 @@
+name: uRanking
+version: 2.0.2
+main: ga.brunnofdc.uRanking.Main
+author: BrunnoFdc
+website: https://www.brunnofdc.ga/
+depend: [Vault]
+softdepend: [UltimateChat, Legendchat]
+commands:
+    rankup:
+      description: Upa o seu rank!
+    uranking:
+      description: Administra o sistema de ranks!

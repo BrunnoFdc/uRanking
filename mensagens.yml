@@ -1,0 +1,36 @@
+#################################################
+#                                               #
+#           CONFIGURAÇÃO DAS MENSAGENS          # 
+#                                               #
+#################################################
+
+#Mensagens sem placeholders:
+Sem-Permissao: "&4Você não tem permissão para isso!"
+
+
+#Mensagens com placeholders:
+#Grupo 1 - Placeholders disponíveis:
+#@player = Nome do jogador, @rank = Rank atual do jogador
+Rank-Maximo:
+- ''
+- '&cVocê já está no rank máximo'
+- ''
+
+#Grupo 2 - Placeholders disponíveis: 
+#@player = Nome do jogador, @rank = Rank que o jogador upou, @oldrank = Rank antigo
+#@preco = Dinheiro necessário, @dinheiro = Dinheiro do jogador
+Sem-Money:
+- ''
+- '&cVocê não tem dinheiro suficiente!'
+- '&cNecessário: &2@preco'
+- ''
+Mensagem-Upou-Com-Sucesso:
+- ''
+- '&aVocê upou para o rank @rank'
+- ''
+Anuncio:
+- '&aO jogador &6@player &aupou para o rank &r@rank'
+Anuncio-Rank-Maximo:
+- ''
+- '&e&lO jogador &a@player &e&lupou para o rank maximo! &6&lParabéns!'
+- ''
