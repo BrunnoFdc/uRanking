@@ -36,6 +36,10 @@ public class Rankup implements CommandExecutor {
 			
 			Player p = (Player)sender;
 			
+			if(!RankManager.PLAYER_RANKS.containsKey(p.getUniqueId())) {
+				
+				p.sendMessage("§cNão foi possível encontrar seu rank, por favor, relogue!");
+			}
 			
 			//Verifica se o player tem permissão
 			if(!(p.hasPermission("uranking.rankup"))) {

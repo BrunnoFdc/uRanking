@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 
 import br.com.devpaulo.legendchat.api.events.ChatMessageEvent;
 import ga.brunnofdc.uRanking.Main;
+import ga.brunnofdc.uRanking.Core.RankManager;
 import ga.brunnofdc.uRanking.Core.Player.PlayerInfo;
 
 public class Legendchat implements Listener {
@@ -21,8 +22,24 @@ public class Legendchat implements Listener {
 	public void onChat(ChatMessageEvent e) {
 		
 		Player p = e.getSender();
-		PlayerInfo pInfo = new PlayerInfo(p.getUniqueId());
-		e.setTagValue("rank", pInfo.getPlayerRank().getTag());
+		if(!RankManager.PLAYER_RANKS.containsKey(p.getUniqueId())) {
+			
+			p.sendMessage("§cNão foi possível encontrar seu rank, por favor, relogue!");
+			
+		} else {
+			
+			PlayerInfo pInfo = new PlayerInfo(p.getUniqueId());
+			
+			if(!p.hasPermission("uranking.hidetag")) {
+			
+				e.setTagValue("rank", pInfo.getPlayerRank().getTag());
+				
+			}
+			
+			
+		}
+		
+		
 	}
 
 }

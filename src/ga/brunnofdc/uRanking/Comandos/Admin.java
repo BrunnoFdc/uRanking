@@ -46,10 +46,13 @@ public class Admin implements CommandExecutor {
 				if(args[0].equalsIgnoreCase("reload")) {
 					
 					jp.reloadConfig();
+					RankManager.PLAYER_RANKS.clear();
+					Main.setupRanks(sender);
 					LocaleManager.reload();
-					sender.sendMessage(TAG_DEFAULT + "§fArquivos de configuração recarregados com sucesso!");
-					return true;
+					sender.sendMessage(TAG_DEFAULT + "Configurações recarregadas com sucesso!");
+					
 				}
+				
 				
 				if(args[0].equalsIgnoreCase("setar")) {
 					
@@ -110,6 +113,12 @@ public class Admin implements CommandExecutor {
 					
 					}
 					
+					if(!RankManager.PLAYER_RANKS.containsKey(p.getUniqueId())) {
+						
+						p.sendMessage("§cNão foi possível encontrar seu rank, por favor, relogue!");
+						return true;
+						
+					}
 					
 					PlayerInfo pInfo = new PlayerInfo(p.getUniqueId());
 					final String oldRank = pInfo.getPlayerRank().getRankName();
@@ -272,6 +281,13 @@ public class Admin implements CommandExecutor {
 					if(p == null) {
 						
 						sender.sendMessage(TAG_ERROR + "§4O player especificado não foi encontrado!");
+						return true;
+						
+					}
+					
+					if(!RankManager.PLAYER_RANKS.containsKey(p.getUniqueId())) {
+						
+						p.sendMessage("§cNão foi possível encontrar seu rank, por favor, relogue!");
 						return true;
 						
 					}
@@ -442,8 +458,8 @@ public class Admin implements CommandExecutor {
 			} else {
 				
 				sender.sendMessage("§b§luRanking §f- §av" + Bukkit.getPluginManager().getPlugin("uRanking").getDescription().getVersion());
-			    sender.sendMessage("§a/uranking reload §7- §fRecarrega todos os arquivos de configuração (Armazenamento de dados não são afetados)");
-			    sender.sendMessage("§a/uranking upar <nome> §7- §fFaz o jogador upar seu rank, removendo dinheiro e rodando os comandos");
+			    sender.sendMessage("§a/uranking reload §7- §fRecarrega a configuração (OBS: Os jogadores precisarão relogar)");
+				sender.sendMessage("§a/uranking upar <nome> §7- §fFaz o jogador upar seu rank, removendo dinheiro e rodando os comandos");
 			    sender.sendMessage("§a/uranking setar <nome> <rank> §7- §fSeta o rank para um jogador");
 			    sender.sendMessage("§a/uranking forcar <nome> <rank> §7- §fFaz o jogador upar seu rank para um especifico, removendo dinheiro e rodando os comandos");
 			    sender.sendMessage("§a/uranking reset <nome> §7- §fReseta o rank do jogador (É necessário remover as permissões manualmente)");

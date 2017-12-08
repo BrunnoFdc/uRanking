@@ -27,11 +27,15 @@ public class PlayerInfo {
 	}
 
 	public Rank getPlayerRank() {
+	
 		return RankManager.PLAYER_RANKS.containsKey(player) ? RankManager.PLAYER_RANKS.get(player) : null;
+	
 	}
 
 	public Rank getNextRank() {
+	
 		return Main.RANKS_ORDERED.get(RankManager.PLAYER_RANKS.get(player).getPosition() + 1);
+	
 	}
 	
 }

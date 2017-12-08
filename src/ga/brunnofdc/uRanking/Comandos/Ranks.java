@@ -19,6 +19,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import ga.brunnofdc.uRanking.Main;
 import ga.brunnofdc.uRanking.Core.LocaleManager;
+import ga.brunnofdc.uRanking.Core.RankManager;
 import ga.brunnofdc.uRanking.Core.Player.PlayerInfo;
 
 public class Ranks extends Command {
@@ -74,6 +75,13 @@ public class Ranks extends Command {
 				if(!p.hasPermission("uranking.ranks")) {
 					
 					p.sendMessage(ChatColor.translateAlternateColorCodes('&', LocaleManager.getMensagens().getString("Sem-Permissao")));
+					return true;
+					
+				}
+				
+				if(!RankManager.PLAYER_RANKS.containsKey(p.getUniqueId())) {
+					
+					p.sendMessage("§cNão foi possível encontrar seu rank, por favor, relogue!");
 					return true;
 					
 				}
