@@ -1,22 +1,24 @@
 package ga.brunnofdc.uRanking;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import ga.brunnofdc.uRanking.Comandos.Admin;
 import ga.brunnofdc.uRanking.Comandos.Ranks;
@@ -203,9 +205,10 @@ public class Main extends JavaPlugin {
 				
 		try {
 			
-			URL banner = new URL("https://api.github.com/repos/BrunnoFdc/uRanking/releases/latest");
-			JSONObject json = new JSONObject(IOUtils.toString(banner));
-			String github = json.getString("tag_name");
+			URL url = new URL("https://api.github.com/repos/BrunnoFdc/uRanking/releases/latest");
+			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+			JsonObject json = new JsonParser().parse(in.readLine()).getAsJsonObject();
+			String github = json.get("tag_name").getAsString();
 			
 			if(!PLUGIN_VERSION.equals(github)) {
 				
@@ -218,11 +221,6 @@ public class Main extends JavaPlugin {
 			Bukkit.getConsoleSender().sendMessage(PLUGIN_ERROR_PREFIX + "Não foi possível verificar se o plugin possui atualizações. Por favor, cheque manualmente!");
 			e.printStackTrace();
 			
-		} catch (JSONException e) {
-		
-			Bukkit.getConsoleSender().sendMessage(PLUGIN_ERROR_PREFIX + "Não foi possível verificar se o plugin possui atualizações. Por favor, cheque manualmente!");
-			e.printStackTrace();
-		
 		} catch (IOException e) {
 			
 			Bukkit.getConsoleSender().sendMessage(PLUGIN_ERROR_PREFIX + "Não foi possível verificar se o plugin possui atualizações. Por favor, cheque manualmente!");
