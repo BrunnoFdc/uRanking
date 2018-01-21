@@ -100,14 +100,12 @@ Ranks:
   Noob:
     Nome: '&f&lNoob&r'
     Tag: '&7[&f&lNoob&7]'
-    ItemID: '1'
     Preco: 0
     Comandos:
     - 'pex user @player group add noob'
   Mediano:
     Nome: '&a&lMediano&r'
     Tag: '&7[&a&lMediano&7]'
-    ItemID: '41'
     Preco: 500
     Comandos:
     - 'pex user @player group remove noob'
@@ -116,7 +114,6 @@ Ranks:
   Mito:
     Nome: '&b&lMito&r'
     Tag: '&7[&b&lMito&7]'
-    ItemID: '57'
     Preco: 2500
     Comandos:
     - 'pex user @player group remove mediano'
