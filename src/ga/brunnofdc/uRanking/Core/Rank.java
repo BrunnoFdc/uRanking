@@ -22,6 +22,7 @@ public class Rank implements Comparator<Rank> {
 		this.tag = tag;
 	}
 	
+ 	
 	public int getPosition() {
 		return this.position;
 	}

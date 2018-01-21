@@ -12,7 +12,7 @@ import ga.brunnofdc.uRanking.Core.Rank;
 import ga.brunnofdc.uRanking.Core.RankManager;
 
 @SuppressWarnings("unused")
-public class SignListener implements Listener {
+public class SignListener extends Main implements Listener {
 	
 	Main plugin;
 	FileConfiguration config = plugin.getConfig();
@@ -35,7 +35,7 @@ public class SignListener implements Listener {
 				s.setLine(2, config.getString("Placa.Linha3").replace("&", "§"));
 				s.setLine(3, config.getString("Placa.Linha4").replace("&", "§"));
 
-				
+				Main.setupHooks();
 			}
 			
 		}

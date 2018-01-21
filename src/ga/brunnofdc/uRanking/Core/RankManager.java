@@ -296,4 +296,5 @@ public class RankManager {
 		return Main.RANKS_ORDERED.values().stream().filter(r -> r.getRankId().equalsIgnoreCase(nome)).findFirst().get();
 		
 	}
+
 }

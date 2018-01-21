@@ -7,7 +7,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import ga.brunnofdc.uRanking.Main;
 import ga.brunnofdc.uRanking.Core.RankManager;
-import ga.brunnofdc.uRanking.Util.Update;
 
 public class JoinQuitListener implements Listener {
 	
@@ -20,9 +19,7 @@ public class JoinQuitListener implements Listener {
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent e) {
-		
-		Update.avisoUpdates(e.getPlayer());
-		
+				
 		RankManager rank = new RankManager();
 		rank.setRank(e.getPlayer());
 		

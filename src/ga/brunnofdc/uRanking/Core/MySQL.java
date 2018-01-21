@@ -17,7 +17,7 @@ public class MySQL {
 	private static String user;
 	private static String pass;
 	private static Connection connection;
-	
+		
 	public static Connection mysqlConn() {
 		
 		return connection;

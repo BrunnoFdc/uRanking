@@ -12,12 +12,6 @@ MySQL:
   Database: ''
   Usuario: ''
   Senha: ''
-  
-#Se deseja verificar as atualizações do plugin, ative isso
-Verificar-Atualizacoes: true
-
-#Se deseja enviar uma mensagem aos administradores sobre novas atualizações, ative isso
-Avisar-Administradores: true
 
 #Caso queira usar UUIDs como forma de armazenamento no MySQL, ative
 #Flatfile SEMPRE usará UUIDs como forma de armazenamento
@@ -44,6 +38,46 @@ Anuncio-Rank-Maximo: true
 #Se deseja que o plugin solte um foguete quando o jogador upar, ative isso
 Soltar-Foguete: true
 
+#Configuração do GUI para upar de rank
+Rankup-GUI:
+  Usar: true
+  Nome: "&dUpar para o rank: @rank"
+  
+  #Configuração dos itens 
+  Item_UP:
+    ID: 35:5
+    Nome: "&a&lConfirmar UP!"
+    Lore:
+    - ''
+    - '&e&lClique aqui para confirmar o &a&lRANKUP'
+    - '&7Você ficará com: &c@restante'
+    - ''
+  Item_Cancelar:
+    ID: 35:14
+    Nome: "&c&lCancelar UP!"
+    Lore:
+    - ''
+    - '&e&lClique aqui para cancelar o UP!'
+    - ''
+  Item_Rank:
+    Cabeca:
+      #Deseja que o item do rank seja uma cabeça? Se sim, coloque true no campo abaixo.
+      Modo-Cabeca: false
+      
+      #Caso queira usar a cabeça de um certo jogador, coloque o nome dele aqui
+      #Você também pode usar a cabeça do jogador que executou o comando
+      #Nesse caso, coloque "Jogador" no campo abaixo.
+      Cabeca: Jogador
+    #Caso esteja no modo cabeça, você pode deixar este campo em branco
+    ID: 421
+    Nome: "&e&lUpar para o rank: @rank"
+    Lore:
+    - ''
+    - '&e&lPróximo rank: @rank'
+    - '&e&lPreço para upar: &a@preco'
+    - '&e&lRank atual: @atual'
+    - ''
+   
 #Se deseja enviar titles quando o jogador upar, ative isso e modifique as opções
 Title:
   Usar: true
@@ -59,26 +93,6 @@ Title:
   #@preco = O dinheiro gasto para subir para o rank, @dinheiro = O dinheiro que sobrou após o jogador upar
   Titulo: '&eVocê subiu de rank!'
   Subtitulo: 'Você está agora no rank @rank&r!'
-
-#Se deseja ativar o comando /ranks, que cria um GUI com todas as informações dos ranks, ative isso e configure
-GUI:
-  Ativar: true
-  
-  #Coloque aqui o nome do GUI
-  #AVISO: Maximo 32 caracteres
-  #Placeholders:
-  #@player = Nome do jogador que está vendo a GUI, @playerrank = Nome Rank que o jogador está
-  #@dinheiro = Dinheiro do jogador
-  Nome: '&aMenu de Ranks'
-  
-  #Abaixo, são as configurações do nome dos Itens e Lore.
-  #Todos os itens da GUI serão afetados por essa configuração
-  #Placeholders:
-  #@player =  Nome do jogador que está vendo a GUI, @rank = Nome do Rank, @preco = Preço do rank
-  #@playerrank = Nome do Rank que o jogador está, @dinheiro = Dinheiro que o player tem atualmente
-  ItemNome: '&aRank: @rank'
-  ItemLore:
-  - '&aPreço: &c@preco'
  
 #Configuração dos ranks
 #Guia de configuração: http://bit.ly/uRankingConfigs

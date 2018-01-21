@@ -21,17 +21,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import ga.brunnofdc.uRanking.Comandos.Admin;
-import ga.brunnofdc.uRanking.Comandos.Ranks;
 import ga.brunnofdc.uRanking.Comandos.Rankup;
 import ga.brunnofdc.uRanking.Core.Flatfile;
 import ga.brunnofdc.uRanking.Core.LocaleManager;
+import ga.brunnofdc.uRanking.Core.Metrics;
 import ga.brunnofdc.uRanking.Core.MySQL;
 import ga.brunnofdc.uRanking.Core.Rank;
 import ga.brunnofdc.uRanking.Hook.Legendchat;
 import ga.brunnofdc.uRanking.Hook.UltimateChat;
 import ga.brunnofdc.uRanking.Listener.GUIListener;
 import ga.brunnofdc.uRanking.Listener.JoinQuitListener;
-import ga.brunnofdc.uRanking.Util.Update;
 import net.milkbowl.vault.economy.Economy;
 
 public class Main extends JavaPlugin {
@@ -45,6 +44,7 @@ public class Main extends JavaPlugin {
 	public static boolean CHAT_HOOK = false;
 	public static boolean MYSQL_USE = false;
 	public static boolean USE_UUIDS = false;
+	public static boolean USE_UPGUI = false;	
 	
 	public void onEnable() {
 	
@@ -52,16 +52,20 @@ public class Main extends JavaPlugin {
 		PLUGIN_VERSION = getDescription().getVersion();
 		ConsoleCommandSender b = Bukkit.getConsoleSender();
 		b.sendMessage(PLUGIN_PREFIX + "Inicializando uRanking v" + PLUGIN_VERSION);
-		checkVersion(PLUGIN_VERSION);
+		
+		Metrics metrics = new Metrics(this);
+		
 		setupConfig();
 		if(getConfig().getBoolean("MySQL.Usar")) {
 			
 			MYSQL_USE = true;
 			MySQL.setupMySQL(this);
+			metrics.addCustomChart(new Metrics.SimplePie("using_mysql", () -> "yes"));
 			
 		} else {
 			
 			Flatfile.setupDataFile(this);
+			metrics.addCustomChart(new Metrics.SimplePie("using_mysql", () -> "no"));
 			
 		}
 				
@@ -75,23 +79,25 @@ public class Main extends JavaPlugin {
 		registerListeners();
 		getCommand("rankup").setExecutor(new Rankup());
 		getCommand("uranking").setExecutor(new Admin(this));
-		
-		if(Main.plugin.getConfig().getBoolean("GUI.Ativar")) {
-		
-			new Ranks("ranks");    
-		
-		}
 		setupHooks();
 		setupEconomy();
 		setupRanks();
+		
 		if(getConfig().getBoolean("Usar-UUIDs")) {
 			
 			USE_UUIDS = true;
 			
 		}
-		if(getConfig().getBoolean("Verificar-Atualizacoes")) {
-			Update.verifyAtualizacao();
+			
+		checkVersion(PLUGIN_VERSION);
+		
+		if(getConfig().getBoolean("Rankup-GUI.Usar")) {
+			
+			USE_UPGUI = true;
+			
 		}
+		
+		
 		
 	}
 	
@@ -102,8 +108,7 @@ public class Main extends JavaPlugin {
 		} catch (SQLException e) {}
 		
 	}
-	
-	
+		
 	private void registerListeners() {
 		
 		Bukkit.getPluginManager().registerEvents(new JoinQuitListener(this), this);
@@ -140,18 +145,18 @@ public class Main extends JavaPlugin {
 		
 	}
 	
-	private void setupHooks() {
+	protected static void setupHooks() {
 
 		ConsoleCommandSender b = Bukkit.getConsoleSender();
 		if(Bukkit.getPluginManager().isPluginEnabled("Legendchat")) {
 			
 			b.sendMessage(PLUGIN_PREFIX + "Legendchat encontrado! Hook ativado.");
-			Bukkit.getPluginManager().registerEvents(new Legendchat(this), this);
+			Bukkit.getPluginManager().registerEvents(new Legendchat(plugin), plugin);
 			CHAT_HOOK = true;
 			
 		} else if(Bukkit.getPluginManager().isPluginEnabled("UltimateChat")) {
 			
-			Bukkit.getPluginManager().registerEvents(new UltimateChat(this), this);
+			Bukkit.getPluginManager().registerEvents(new UltimateChat(plugin), plugin);
 			b.sendMessage(PLUGIN_PREFIX + "uChat encontrado! Hook ativado.");
 			CHAT_HOOK = true;
 		}
@@ -168,6 +173,7 @@ public class Main extends JavaPlugin {
 			
 			RANKS_ORDERED.put(i, rank);
 			i++;
+			
 		}
 		
 		Bukkit.getConsoleSender().sendMessage("§b[uRanking] §fForam encontrados e armazenados §a" + (i - 1) + " §franks!");
@@ -212,8 +218,9 @@ public class Main extends JavaPlugin {
 			
 			if(!PLUGIN_VERSION.equals(github)) {
 				
-				Bukkit.getConsoleSender().sendMessage(PLUGIN_PREFIX + "Há um novo update disponível no plugin! Baixe em: http://bit.ly/uRankingDownload");
-				
+				Bukkit.getConsoleSender().sendMessage(PLUGIN_PREFIX + "Há um novo update disponível do plugin! Baixe em: http://bit.ly/uRankingDownload");
+				Bukkit.getConsoleSender().sendMessage(PLUGIN_PREFIX + "Não esqueça de verificar se existem atualizações na config.yml ;-)");
+
 			}
 				
 		} catch (MalformedURLException e) {
@@ -224,7 +231,7 @@ public class Main extends JavaPlugin {
 		} catch (IOException e) {
 			
 			Bukkit.getConsoleSender().sendMessage(PLUGIN_ERROR_PREFIX + "Não foi possível verificar se o plugin possui atualizações. Por favor, cheque manualmente!");
-			e.printStackTrace();
+
 		}
 		
 		
