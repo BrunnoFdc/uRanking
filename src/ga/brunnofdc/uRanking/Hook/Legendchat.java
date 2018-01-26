@@ -30,7 +30,7 @@ public class Legendchat implements Listener {
 			
 			PlayerInfo pInfo = new PlayerInfo(p.getUniqueId());
 			
-			if(!p.hasPermission("uranking.hidetag")) {
+			if((!p.hasPermission("uranking.hidetag"))) {
 			
 				e.setTagValue("rank", pInfo.getPlayerRank().getTag());
 				
