@@ -7,8 +7,8 @@
 			<attribute name="javadoc_location" value="jar:file:/D:/bukkit-1.8.8-R0.1-20160127.211458-34-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Minecraft/APIs/UltimateChat.jar"/>
 	<classpathentry kind="lib" path="D:/Minecraft/APIs/LegendChat.jar"/>
 	<classpathentry kind="lib" path="D:/Minecraft/APIs/Vault.jar"/>
+	<classpathentry kind="lib" path="D:/Minecraft/APIs/UltimateChat-1.8.4-b141-Universal.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import br.net.fabiozumbi12.UltimateChat.API.SendChannelMessageEvent;
+import br.net.fabiozumbi12.UltimateChat.Bukkit.API.SendChannelMessageEvent;
 import ga.brunnofdc.uRanking.Main;
 import ga.brunnofdc.uRanking.Core.RankManager;
 import ga.brunnofdc.uRanking.Core.Player.PlayerInfo;
