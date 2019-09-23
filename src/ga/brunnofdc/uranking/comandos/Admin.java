@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking.Comandos;
+package ga.brunnofdc.uranking.comandos;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -8,11 +8,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import ga.brunnofdc.uRanking.Main;
-import ga.brunnofdc.uRanking.Core.LocaleManager;
-import ga.brunnofdc.uRanking.Core.Rank;
-import ga.brunnofdc.uRanking.Core.RankManager;
-import ga.brunnofdc.uRanking.Core.Player.PlayerInfo;
+import ga.brunnofdc.uranking.Main;
+import ga.brunnofdc.uranking.core.LocaleManager;
+import ga.brunnofdc.uranking.core.Rank;
+import ga.brunnofdc.uranking.core.RankManager;
+import ga.brunnofdc.uranking.core.player.PlayerInfo;
 
 public class Admin implements CommandExecutor {
 	

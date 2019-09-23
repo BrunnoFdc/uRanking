@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking.Core;
+package ga.brunnofdc.uranking.core;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking.Listener;
+package ga.brunnofdc.uranking.listener;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -6,9 +6,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-import ga.brunnofdc.uRanking.Main;
-import ga.brunnofdc.uRanking.Comandos.Rankup;
-import ga.brunnofdc.uRanking.Core.Player.PlayerInfo;
+import ga.brunnofdc.uranking.Main;
+import ga.brunnofdc.uranking.comandos.Rankup;
+import ga.brunnofdc.uranking.core.player.PlayerInfo;
 
 public class GUIListener implements Listener {
 	

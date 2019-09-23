@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking.API;
+package ga.brunnofdc.uranking.api;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;

@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking.Core;
+package ga.brunnofdc.uranking.core;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ import java.sql.Connection;
 
 import org.bukkit.Bukkit;
 
-import ga.brunnofdc.uRanking.Main;
+import ga.brunnofdc.uranking.Main;
 
 public class MySQL {
 	

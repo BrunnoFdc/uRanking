@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking.Core;
+package ga.brunnofdc.uranking.core;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import ga.brunnofdc.uRanking.Main;
+import ga.brunnofdc.uranking.Main;
 
 public class RankManager {
 

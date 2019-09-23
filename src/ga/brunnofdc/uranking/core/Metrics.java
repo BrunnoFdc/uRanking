@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking.Core;
+package ga.brunnofdc.uranking.core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

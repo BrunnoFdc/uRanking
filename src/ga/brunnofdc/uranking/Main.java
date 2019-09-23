@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking;
+package ga.brunnofdc.uranking;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,17 +20,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import ga.brunnofdc.uRanking.Comandos.Admin;
-import ga.brunnofdc.uRanking.Comandos.Rankup;
-import ga.brunnofdc.uRanking.Core.Flatfile;
-import ga.brunnofdc.uRanking.Core.LocaleManager;
-import ga.brunnofdc.uRanking.Core.Metrics;
-import ga.brunnofdc.uRanking.Core.MySQL;
-import ga.brunnofdc.uRanking.Core.Rank;
-import ga.brunnofdc.uRanking.Hook.Legendchat;
-import ga.brunnofdc.uRanking.Hook.UltimateChat;
-import ga.brunnofdc.uRanking.Listener.GUIListener;
-import ga.brunnofdc.uRanking.Listener.JoinQuitListener;
+import ga.brunnofdc.uranking.comandos.Admin;
+import ga.brunnofdc.uranking.comandos.Rankup;
+import ga.brunnofdc.uranking.core.Flatfile;
+import ga.brunnofdc.uranking.core.LocaleManager;
+import ga.brunnofdc.uranking.core.Metrics;
+import ga.brunnofdc.uranking.core.MySQL;
+import ga.brunnofdc.uranking.core.Rank;
+import ga.brunnofdc.uranking.hook.Legendchat;
+import ga.brunnofdc.uranking.hook.UltimateChat;
+import ga.brunnofdc.uranking.listener.GUIListener;
+import ga.brunnofdc.uranking.listener.JoinQuitListener;
 import net.milkbowl.vault.economy.Economy;
 
 public class Main extends JavaPlugin {

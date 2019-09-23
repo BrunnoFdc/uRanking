@@ -1,13 +1,13 @@
-package ga.brunnofdc.uRanking.Hook;
+package ga.brunnofdc.uranking.hook;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import br.net.fabiozumbi12.UltimateChat.Bukkit.API.SendChannelMessageEvent;
-import ga.brunnofdc.uRanking.Main;
-import ga.brunnofdc.uRanking.Core.RankManager;
-import ga.brunnofdc.uRanking.Core.Player.PlayerInfo;
+import ga.brunnofdc.uranking.Main;
+import ga.brunnofdc.uranking.core.RankManager;
+import ga.brunnofdc.uranking.core.player.PlayerInfo;
 
 public class UltimateChat implements Listener {
 	

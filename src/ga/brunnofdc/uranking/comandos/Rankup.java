@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking.Comandos;
+package ga.brunnofdc.uranking.comandos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +17,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import ga.brunnofdc.uRanking.Main;
-import ga.brunnofdc.uRanking.API.PlayerRankupEvent;
-import ga.brunnofdc.uRanking.Core.LocaleManager;
-import ga.brunnofdc.uRanking.Core.Rank;
-import ga.brunnofdc.uRanking.Core.RankManager;
-import ga.brunnofdc.uRanking.Core.Player.PlayerInfo;
+import ga.brunnofdc.uranking.Main;
+import ga.brunnofdc.uranking.api.PlayerRankupEvent;
+import ga.brunnofdc.uranking.core.LocaleManager;
+import ga.brunnofdc.uranking.core.Rank;
+import ga.brunnofdc.uranking.core.RankManager;
+import ga.brunnofdc.uranking.core.player.PlayerInfo;
 
 @SuppressWarnings("deprecation")
 public class Rankup implements CommandExecutor {

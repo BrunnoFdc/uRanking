@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking.Listener;
+package ga.brunnofdc.uranking.listener;
 
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -7,9 +7,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
-import ga.brunnofdc.uRanking.Main;
-import ga.brunnofdc.uRanking.Core.Rank;
-import ga.brunnofdc.uRanking.Core.RankManager;
+import ga.brunnofdc.uranking.Main;
+import ga.brunnofdc.uranking.core.Rank;
+import ga.brunnofdc.uranking.core.RankManager;
 
 @SuppressWarnings("unused")
 public class SignListener extends Main implements Listener {

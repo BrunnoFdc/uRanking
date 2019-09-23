@@ -1,4 +1,4 @@
-package ga.brunnofdc.uRanking.Core.Utils;
+package ga.brunnofdc.uranking.core.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

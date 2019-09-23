@@ -1,12 +1,12 @@
-package ga.brunnofdc.uRanking.Listener;
+package ga.brunnofdc.uranking.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import ga.brunnofdc.uRanking.Main;
-import ga.brunnofdc.uRanking.Core.RankManager;
+import ga.brunnofdc.uranking.Main;
+import ga.brunnofdc.uranking.core.RankManager;
 
 public class JoinQuitListener implements Listener {
 	

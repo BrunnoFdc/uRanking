@@ -1,10 +1,10 @@
-package ga.brunnofdc.uRanking.Core.Player;
+package ga.brunnofdc.uranking.core.player;
 
 import java.util.UUID;
 
-import ga.brunnofdc.uRanking.Main;
-import ga.brunnofdc.uRanking.Core.Rank;
-import ga.brunnofdc.uRanking.Core.RankManager;
+import ga.brunnofdc.uranking.Main;
+import ga.brunnofdc.uranking.core.Rank;
+import ga.brunnofdc.uranking.core.RankManager;
 
 
 public class PlayerInfo {

@@ -1,10 +1,10 @@
-package ga.brunnofdc.uRanking.API;
+package ga.brunnofdc.uranking.api;
 
 import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-import ga.brunnofdc.uRanking.Core.Player.PlayerInfo;
+import ga.brunnofdc.uranking.core.player.PlayerInfo;
 
 public class RankAPI {
 	
