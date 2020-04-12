@@ -1,0 +1,37 @@
+No-Next-Rank: "None"
+No-Old-Rank: "None"
+No-Permission: "&4You don't have permission to do this!"
+
+Rankup-Success:
+  - ''
+  - '&aYou ranked-up to @nextrank'
+  - ''
+Rankup-Canceled:
+  - ''
+  - '&cYou canceled the rank-up'
+  - ''
+Rankup-Success-Announce:
+  - '&aThe player &6@player &aranked-up to &r@nextrank'
+Rankup-Max-Rank:
+  - ''
+  - '&cYou reached the max rank!'
+  - ''
+Rankup-Max-Rank-Announce:
+  - ''
+  - '&e&lThe player &a@player &e&lreached the max rank! &6&lCongrats!'
+  - ''
+Insufficient-Money:
+  - ''
+  - '&cYou dont have enough money!'
+  - '&cPrice: &2@price'
+  - '&cYour balance: &4@balance'
+  - ''
+Rank-Not-Stored:
+  - ""
+  - "&4Your rank cannot be found. Try relogging!"
+  - ""
+Already-Max-Rank:
+  - ''
+  - 'You are already on the max rank!'
+  - ''
+

@@ -1,0 +1,77 @@
+System-Settings:
+  Database:
+    MySQL:
+      Use: true
+      Host: 'localhost'
+      Port: '3306'
+      DB_Name: ''
+      Username: ''
+      Password: ''
+  Language: 'en'
+
+System-Behaviour:
+  PM-On-Rankup: true
+  Broadcast-On-Rankup: true
+  PM-On-Max-Rank: true
+  Broadcast-On-Max-Rank: true
+  Send-Title:
+    Enable: true
+    Global: false
+    Title-Line: "I'm a title! And I can show the new @rank and the @player name this way!"
+    Subtitle-Line: "I'm a subtitle! I can show the new @rank and @player name too!"
+
+Rankup-GUI:
+  Enable: true
+  Inventory-Name: "Confirm your rank-up!"
+  Items:
+    Item_Confirm:
+      ID: "35:5"
+      Name: "&a&lConfirm!"
+      Lore:
+        - ''
+        - '&e&lClick to confirm your &a&lRANKUP'
+        - '&7Remaining money after that: &c@remaining'
+        - ''
+    Item_Cancel:
+      ID: "35:14"
+      Name: "&c&lCancel!"
+      Lore:
+        - ''
+        - '&e&lClick to cancel your RANKUP!'
+        - ''
+    Item_Info:
+      Head-Mode:
+        Enable: false
+        Player: "@player or another name"
+      ID: "421"
+      Name: "&e&lUp to rank: @nextrank"
+      Lore:
+        - ''
+        - '&e&lNext rank: @nextrank'
+        - '&e&lPrice: &a@price'
+        - '&e&lActual rank: @rank'
+        - ''
+
+Ranks:
+  Noob:
+    Display-Name: '&f&lNoob&r'
+    Chat-Prefix: '&7[&f&lNoob&r&7]'
+    Price: 0
+    Commands:
+      - 'pex user @player group add noob'
+  Regular:
+    Display-Name: '&a&lRegular&r'
+    Chat-Prefix: '&7[&a&lRegular&r&7]'
+    Price: 500
+    Commands:
+      - 'pex user @player group remove noob'
+      - 'pex user @player group add regular'
+      - 'give @player diamond 5'
+  Pro:
+    Display-Name: '&b&lPro&r'
+    Chat-Prefix: '&7[&b&lPro&r&7]'
+    Price: 2500
+    Commands:
+      - 'pex user @player group remove regular'
+      - 'pex user @player group add pro'
+      - 'give @player diamond 10'

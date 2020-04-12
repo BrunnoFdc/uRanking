@@ -1,0 +1,37 @@
+No-Next-Rank: "Nenhum"
+No-Old-Rank: "Nenhum"
+No-Permission: "&4Você não tem permissão para fazer isso!"
+
+Rankup-Success:
+  - ''
+  - '&aVocê upou para o rank @nextrank'
+  - ''
+Rankup-Canceled:
+  - ''
+  - '&Você cancelou o rankup'
+  - ''
+Rankup-Success-Announce:
+  - '&aO jogador &6@player &aupou para o rank &r@nextrank'
+Rankup-Max-Rank:
+  - ''
+  - '&cVocê chegou ao rank máximo!'
+  - ''
+Rankup-Max-Rank-Announce:
+  - ''
+  - '&e&lO jogador &a@player &e&lchegou ao rank maximo!'
+  - ''
+Insufficient-Money:
+  - ''
+  - '&cVocê não tem dinheiro suficiente!'
+  - '&cPreço: &2@price'
+  - '&cSeu dinheiro: &4@balance'
+  - ''
+Rank-Not-Stored:
+  - ""
+  - "&4Seu rank não foi encontrado. Tente relogar!"
+  - ""
+Already-Max-Rank:
+  - ''
+  - '&4Você já está no rank máximo!'
+  - ''
+
