@@ -1,23 +1,18 @@
 # uRanking
-Um plugin de rankup que possibilita que os jogadores upem de rank sem perder o cargo de VIP/Staff!
+A rank-up plugin that permits you to rank-up no matter what group you are on your permissions plugin.
+To be honest, you not even need a permissions plugin to use uRanking (However, It's highly recommended =P)
 
-É o mesmo uRanking que antes era proprietário, mas agora, é open-source e gratuito!
+### Features:
+- Data storing with MySQL and Flatfile;
+- Native hook with [uChat](https://github.com/FabioZumbi12/UltimateChat), [Legendchat](https://github.com/SubZero0/Legendchat) and [Maximvdw plugins](https://www.spigotmc.org/resources/authors/maximvdw.6687/)!
+- You can set commands to be executed when players rank-up;
+- You can configure Titles to be sent to players when they rank-up;
+- You can set-up a rank-up confirmation menu; 
+- Extremely customizable.
 
-### Recursos:
-- Programado utilizando POO, para atingir a melhor performance possível.
-- Armazenamento de dados em MySQL e flatfile.
-- Suporte nativo aos plugins de chat [uChat](https://github.com/FabioZumbi12/UltimateChat) e [Legendchat](https://github.com/SubZero0/Legendchat).
-- Possibilidade de executar comandos no console quando um player upa seu rank.
-- Possibilidade de enviar titles aos jogadores ao uparem seu rank.
-- Sistema de confirmação de rankup com GUI.
-- Extremamente customizável
+### Commands and permissions:
+- /rankup - uranking.rankup - Rank-up your rank; for players. 
+- /uranking - uranking.admin - Admin commands.
 
-### Comandos e permissões:
-- /rankup - uranking.rankup - Upar o rank atual
-- /uranking - uranking.admin - Comandos administrativos
-- Sem comando - uranking.hidetag - Esconde a tag do chat do jogador que possuir a TAG
-
-### Informações adicionais:
-- Caso use o plugin Legendchat, você pode exibir as tags do rank no chat usando a tag {rank}
-- Caso use o plugin uChat, você pode exibir as tags do rank no chat utilizando as tags {rank}, {rank_name} e {rank_id}
-- A unica dependência do uRanking é o plugin [Vault](https://dev.bukkit.org/projects/vault) e algum plugin de economia. 
+### Additional info:
+- The only uRanking dependencies at now are [Vault](https://dev.bukkit.org/projects/vault) and an economy plugin. 
