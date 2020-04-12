@@ -2,7 +2,7 @@
 >*Fala português? [Clique aqui e leia a descrição em português](https://github.com/BrunnoFdc/uRanking/blob/master/README-pt_BR.md)!*
 
 A rank-up plugin that permits you to rank-up no matter what group you are on your permissions plugin.
-To be honest, you not even need a permissions plugin to use uRanking (However, It's highly recommended =P)
+To be honest, you do not even need a permissions plugin to use uRanking (However, It's highly recommended =P)
 
 ### Features:
 - Data storing with MySQL and Flatfile;
