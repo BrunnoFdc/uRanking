@@ -5,7 +5,7 @@ author: BrunnoFdc
 website: https://github.com/BrunnoFdc/uRanking
 description: 'A ranking plugin that allow people from all permission group to rankup'
 depend: [Vault]
-softdepend: [UltimateChat, Legendchat]
+softdepend: [UltimateChat, Legendchat, MVdWPlaceholderAPI]
 commands:
   rankup:
     description: Rank-up your actual rank
