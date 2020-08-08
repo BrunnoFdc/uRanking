@@ -64,10 +64,6 @@
             <id>mvdw-software</id>
             <url>http://repo.mvdw-software.be/content/groups/public/</url>
         </repository>
-        <repository>
-            <id>inventive-repo</id>
-            <url>https://repo.inventivetalent.org/content/groups/public/</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -86,7 +82,7 @@
         <dependency>
             <groupId>br.net.fabiozumbi12.UltimateChat</groupId>
             <artifactId>UltimateChat-Spigot</artifactId>
-            <version>1.8.9</version>
+            <version>1.9.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
