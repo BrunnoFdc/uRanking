@@ -53,25 +53,3 @@ Rankup-GUI:
         - ''
 
 Ranks:
-  Noob:
-    Display-Name: '&f&lNoob&r'
-    Chat-Prefix: '&7[&f&lNoob&r&7]'
-    Price: 0
-    Commands:
-      - 'pex user @player group add noob'
-  Regular:
-    Display-Name: '&a&lRegular&r'
-    Chat-Prefix: '&7[&a&lRegular&r&7]'
-    Price: 500
-    Commands:
-      - 'pex user @player group remove noob'
-      - 'pex user @player group add regular'
-      - 'give @player diamond 5'
-  Pro:
-    Display-Name: '&b&lPro&r'
-    Chat-Prefix: '&7[&b&lPro&r&7]'
-    Price: 2500
-    Commands:
-      - 'pex user @player group remove regular'
-      - 'pex user @player group add pro'
-      - 'give @player diamond 10'
