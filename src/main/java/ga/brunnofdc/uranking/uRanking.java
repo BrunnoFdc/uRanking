@@ -8,16 +8,22 @@ import ga.brunnofdc.uranking.economy.units.VaultMoney;
 import ga.brunnofdc.uranking.events.JoinQuitEvent;
 import ga.brunnofdc.uranking.hooks.Hook;
 import ga.brunnofdc.uranking.hooks.Legendchat;
+import ga.brunnofdc.uranking.hooks.MVdWPlugins;
 import ga.brunnofdc.uranking.hooks.UltimateChat;
 import ga.brunnofdc.uranking.lib.Metrics;
+import ga.brunnofdc.uranking.ranking.Rank;
 import ga.brunnofdc.uranking.ranking.RankCacheManager;
 import ga.brunnofdc.uranking.ranking.RankUtils;
 import ga.brunnofdc.uranking.utils.Language;
+import ga.brunnofdc.uranking.utils.RankMapper;
 import ga.brunnofdc.uranking.utils.SystemDefs;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class uRanking extends JavaPlugin {
@@ -30,15 +36,7 @@ public class uRanking extends JavaPlugin {
 
         instance = this;
 
-        if(!getDataFolder().exists())
-            getDataFolder().mkdir();
-
-        //If has no config, save the default one
-        saveDefaultConfig();
-
-        //If config exists, try to copy new defaults that aren't present on actual config
-        getConfig().options().copyDefaults(true);
-        saveConfig();
+        setupConfig();
 
         //TODO: Make dynamic
         unity = new VaultMoney();
@@ -71,6 +69,63 @@ public class uRanking extends JavaPlugin {
         getLogger().info("Data has been successfully saved.");
         DataManager.getDataSource().onDisable();
 
+    }
+
+    public void setupConfig() {
+        if(!getDataFolder().exists())
+            getDataFolder().mkdir();
+
+        //If has no config, save the default one
+        saveDefaultConfig();
+
+        //If config exists, try to copy new defaults that aren't present on actual config
+        getConfig().options().copyDefaults(true);
+
+
+        //If there are no ranks set up, then copy the example ones
+        if(!getConfig().isSet("Ranks")) {
+            ConfigurationSection ranksSection = getConfig().createSection("Ranks");
+            List<Rank> exampleRanks = Arrays.asList(
+                    new Rank(
+                            "Noob",
+                            "&f&lNoob&r",
+                            "&7[&f&lNoob&r&7]",
+                            0,
+                            0,
+                            Collections.singletonList("pex user @player group add noob")
+                    ),
+                    new Rank(
+                            "Regular",
+                            "&a&lRegular&r",
+                            "&7[&a&lRegular&r&7]",
+                            1,
+                            500,
+                            Arrays.asList(
+                                    "pex user @player group remove noob",
+                                    "pex user @player group add regular",
+                                    "give @player diamond 5"
+                            )
+                    ),
+                    new Rank(
+                            "Pro",
+                            "&b&lPro&r",
+                            "&7[&b&lPro&r&7]",
+                            2,
+                            2500,
+                            Arrays.asList(
+                                    "pex user @player group remove regular",
+                                    "pex user @player group add pro",
+                                    "give @player diamond 10"
+                            )
+                    )
+            );
+
+            exampleRanks.forEach(rank -> {
+                RankMapper.toConfiguraionSection(rank, ranksSection);
+            });
+
+        }
+        saveConfig();
     }
 
     public void setupHooks() {
