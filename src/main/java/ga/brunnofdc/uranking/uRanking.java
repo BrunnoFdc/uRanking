@@ -133,6 +133,7 @@ public class uRanking extends JavaPlugin {
         List<Hook> hooks = new ArrayList<>();
         hooks.add(new Legendchat());
         hooks.add(new UltimateChat());
+        hooks.add(new MVdWPlugins());
 
         for(Hook hook : hooks) {
             String relativePlugin = hook.getRelativePlugin();
