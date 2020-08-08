@@ -23,13 +23,14 @@ public class Language {
         String langID = uRanking.getInstance().getConfig().getString("System-Settings.Language");
         String langFileName = "language_" + langID  + ".yml";
 
-        file = new File(plugin.getDataFolder(), "language_" + langID + ".yml");
+        file = new File(plugin.getDataFolder(), langFileName);
         if (!file.exists()) {
-            if (plugin.getResource("languages/" + langFileName) != null) {
-                saveResource("/languages/" + langFileName, file);
+            InputStream langFile = plugin.getResource("languages/" + langFileName);
+            if (langFile != null) {
+                saveResource(langFile, file);
                 uRanking.getInstance().getLogger().info("Created localization file for the language: " + langID);
             } else {
-                saveResource("/languages/language_en.yml", file);
+                saveResource(plugin.getResource("languages/language_en.yml"), file);
                 uRanking.getInstance().getLogger().info("Created localization file with the default language.");
             }
         }
@@ -48,15 +49,14 @@ public class Language {
         return ChatColor.translateAlternateColorCodes('&', msg);
     }
 
-    private static void saveResource(String name, File saveTo) {
+    private static void saveResource(InputStream file, File saveTo) {
         try {
-            InputStream isReader = uRanking.class.getResourceAsStream(name);
             FileOutputStream fos = new FileOutputStream(saveTo);
-            while (isReader.available() > 0) {
-                fos.write(isReader.read());
+            while (file.available() > 0) {
+                fos.write(file.read());
             }
             fos.close();
-            isReader.close();
+            file.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
