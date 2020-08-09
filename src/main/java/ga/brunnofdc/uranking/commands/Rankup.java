@@ -21,6 +21,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -73,7 +74,7 @@ public class Rankup implements CommandExecutor, Listener {
 
     @EventHandler
     public void onClickItem(InventoryClickEvent event) {
-        Inventory inv = event.getView().getTopInventory();
+        InventoryView view = event.getView();
         Player player = (Player) event.getWhoClicked();
         RankedPlayer ranked = RankCacheManager.getRankedPlayer(player);
         if(ranked == null) {
@@ -82,7 +83,7 @@ public class Rankup implements CommandExecutor, Listener {
         String expectedInvName = ChatColor.translateAlternateColorCodes('&',
                 RankedPlayer.translateRankupVariables(guiSec.getString("Inventory-Name"), ranked));
 
-        if(inv.getTitle().equals(expectedInvName)) {
+        if(view.getTitle().equals(expectedInvName)) {
             if(event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT) {
                 if(event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Cancel", ranked))) {
                     event.getView().close();
