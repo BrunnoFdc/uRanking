@@ -28,11 +28,15 @@ public class RankedPlayer {
     public RankedPlayer(Player player) {
         this.player = player;
         this.playerUUID = player.getUniqueId();
-        if(DataManager.getDataSource().exists(player)) {
-            this.rank = DataManager.getDataSource().read(player);
-        } else {
-            this.rankUp(RankUtils.getRankByPosition(1), false, false);
-        }
+        DataManager.getDataSource().exists(player, (result) -> {
+            if(result) {
+                DataManager.getDataSource().read(player, (rank) -> {
+                    this.rank = rank;
+                });
+            } else {
+                rankUp(RankUtils.getRankByPosition(1), false, false);
+            }
+        });
 
     }
 
@@ -58,7 +62,6 @@ public class RankedPlayer {
         try {
             nextRank = RankUtils.getNextRank(rank);
         } catch (MaxRankException e) {
-            nextRank = null;
             player.sendMessage(translateRankupVariables(Language.getMessage(Message.ALREADY_MAX_RANK), this).toArray());
             return;
         }
