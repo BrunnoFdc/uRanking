@@ -10,12 +10,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class Flatfile extends RankDataSource {
 
@@ -38,15 +38,15 @@ public class Flatfile extends RankDataSource {
         this.data = YamlConfiguration.loadConfiguration(this.file);
     }
 
-    //TODO: Test
-    public boolean exists(UUID playeruuid) {
-        return (data.isSet("Player-Ranks." + playeruuid.toString()));
+    @Override
+    public void exists(UUID playeruuid, Consumer<Boolean> callback) {
+        callback.accept(data.isSet("Player-Ranks." + playeruuid.toString()));
     }
 
-    @Nullable
-    public Rank read(UUID playeruuid) {
+    @Override
+    protected void read(UUID playeruuid, Consumer<Rank> callback) {
         String rankid = data.getString("Player-Ranks." + playeruuid.toString());
-        return RankUtils.getRankByID(rankid);
+        callback.accept(RankUtils.getRankByID(rankid));
     }
 
     public void set(UUID playeruuid, String rankid) {

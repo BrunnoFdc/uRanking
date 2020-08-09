@@ -12,7 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.annotation.Nullable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,10 +19,11 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class MySQL extends RankDataSource {
 
-    private HikariDataSource pool;
+    private final HikariDataSource pool;
 
     public MySQL(JavaPlugin plugin) throws Exception {
 
@@ -40,7 +40,8 @@ public class MySQL extends RankDataSource {
                         ":" +
                         mysqlAccessData.getString("Port") +
                         "/" +
-                        mysqlAccessData.getString("DB_Name")
+                        mysqlAccessData.getString("DB_Name") +
+                        "?verifyServerCertificate=false&useSSL=false&useUnicode=true&characterEncoding=utf8"
         );
         connectionConfig.setDriverClassName("com.mysql.jdbc.Driver");
         connectionConfig.setUsername(mysqlAccessData.getString("Username"));
@@ -50,8 +51,10 @@ public class MySQL extends RankDataSource {
         connectionConfig.setConnectionTimeout(connectionTimeout);
 
         pool = new HikariDataSource(connectionConfig);
-        execUpdate("CREATE TABLE IF NOT EXISTS `uranking_ranks` (`UUID` TEXT NULL DEFAULT NULL, `RankID` TEXT NULL DEFAULT NULL)");
-
+        execUpdate("CREATE TABLE IF NOT EXISTS uranking_ranks (" +
+                    "UUID VARCHAR(36) PRIMARY KEY NOT NULL, " +
+                    "RankID VARCHAR(128) NOT NULL " +
+                    ")");
     }
 
     private void execUpdate(String statement) {
@@ -60,19 +63,24 @@ public class MySQL extends RankDataSource {
                 Connection conn = pool.getConnection();
                 conn.prepareStatement(statement).executeUpdate(statement);
                 pool.evictConnection(conn);
-            } catch(SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         });
     }
 
-    private ResultSet execQuery(String statement) {
+    private void execQuery(String statement, Consumer<ResultSet> callback) {
+        ResultSet rs = null;
         try {
             Connection conn = this.pool.getConnection();
-            return conn.prepareStatement(statement).executeQuery();
-        } catch(SQLException e) {
-            e.printStackTrace();
-            return null;
+            rs = conn.prepareStatement(statement).executeQuery();
+            callback.accept(rs);
+        } catch (SQLException e) {
+            callback.accept(null);
+        } finally {
+            if (rs != null) {
+                finishQuery(rs);
+            }
         }
     }
 
@@ -81,7 +89,7 @@ public class MySQL extends RankDataSource {
             Statement statement = rs.getStatement();
             Connection conn = statement.getConnection();
 
-            if(conn != null) {
+            if (conn != null) {
                 statement.close();
                 pool.evictConnection(conn);
                 rs.close();
@@ -92,78 +100,70 @@ public class MySQL extends RankDataSource {
 
     }
 
-    public boolean exists(UUID playeruuid) {
-        boolean result;
-        ResultSet rs = execQuery("SELECT * FROM `uranking_ranks` WHERE `UUID`='" + playeruuid.toString() + "'");
-        try {
-            result = rs != null && rs.first();
-        } catch (SQLException e) {
-            ErrorReporter.sendReport(ErrorType.MYSQL_QUERY, e);
-            return false;
-        } finally {
-            if (rs != null) {
-                finishQuery(rs);
-            }
-        }
-        return result;
+    public void exists(UUID playeruuid, Consumer<Boolean> callback) {
+        final String query = "SELECT * FROM `uranking_ranks` WHERE `UUID`='" + playeruuid.toString() + "'";
 
+        Bukkit.getScheduler().runTaskAsynchronously(
+                uRanking.getInstance(),
+                () -> execQuery(query, resultSet -> {
+                    try {
+                        callback.accept(resultSet != null && resultSet.first());
+                    } catch (SQLException e) {
+                        ErrorReporter.sendReport(ErrorType.MYSQL_QUERY, e);
+                        callback.accept(false);
+                    }
+                })
+        );
     }
 
-    @Nullable
-    public Rank read(UUID playeruuid) {
-        ResultSet result = execQuery("SELECT `RankID` FROM `uranking_ranks` WHERE `UUID`='" + playeruuid + "'");
-        try {
-            if(result != null && result.first()) {
-                return RankUtils.getRankByID(result.getString("RankID"));
-            } else {
-                return null;
-            }
-        } catch (SQLException e) {
-            ErrorReporter.sendReport(ErrorType.MYSQL_QUERY, e);
-            return null;
-        } finally {
-            if (result != null) {
-                finishQuery(result);
-            }
-        }
+    public void read(UUID playeruuid, Consumer<Rank> callback) {
+        final String query = "SELECT `RankID` FROM `uranking_ranks` WHERE `UUID`='" + playeruuid + "'";
+
+        Bukkit.getScheduler().runTaskAsynchronously(
+                uRanking.getInstance(),
+                () -> execQuery(query, (resultSet) -> {
+                    try {
+                        if (resultSet != null && resultSet.first()) {
+                            callback.accept(RankUtils.getRankByID(resultSet.getString("RankID")));
+                        }
+                    } catch (SQLException e) {
+                        ErrorReporter.sendReport(ErrorType.MYSQL_QUERY, e);
+                        callback.accept(null);
+                    }
+                })
+        );
     }
 
     public void set(UUID playeruuid, String rankid) {
-        ResultSet result = execQuery("SELECT * FROM `uranking_ranks` WHERE `UUID`='" + playeruuid + "'");
+        exists(playeruuid, (result) -> {
+            String query = (result) ?
+                    "UPDATE `uranking_ranks` SET `RankID`='" + rankid + "' WHERE `UUID`='" + playeruuid + "'" :
+                    "INSERT INTO `uranking_ranks` (UUID, RankID) VALUES ('" + playeruuid + "', '" + rankid + "')";
 
-        try {
-            if(result != null && result.first()) {
-                execUpdate("UPDATE `uranking_ranks` SET `RankID`='" + rankid + "' WHERE `UUID`='" + playeruuid + "'");
-            } else {
-                execUpdate("INSERT INTO `uranking_ranks` (UUID, RankID) VALUES ('" + playeruuid + "', '" + rankid + "')");
-            }
-        } catch (SQLException e) {
-            ErrorReporter.sendReport(ErrorType.MYSQL_UPDATE, e);
-        } finally {
-            if (result != null) {
-                finishQuery(result);
-            }
-        }
+            execUpdate(query);
+        });
     }
 
     public Map<UUID, String> index() {
         Map<UUID, String> entries = new HashMap<>();
-        ResultSet result = execQuery("SELECT * FROM `uranking_ranks`");
-        try {
-            if(result != null && result.first()) {
-                do {
-                    UUID uuid = UUID.fromString(result.getString("UUID"));
-                    String rank = result.getString("RankID");
-                    entries.put(uuid, rank);
-                } while (result.next());
-            }
-        } catch (SQLException e) {
-            ErrorReporter.sendReport(ErrorType.MYSQL_QUERY, e);
-        } finally {
-            if (result != null) {
-                finishQuery(result);
-            }
-        }
+
+        Bukkit.getScheduler().runTaskAsynchronously(
+                uRanking.getInstance(),
+                () -> execQuery("SELECT * FROM `uranking_ranks`", (resultSet) -> {
+                    try {
+                        if (resultSet != null && resultSet.first()) {
+                            do {
+                                UUID uuid = UUID.fromString(resultSet.getString("UUID"));
+                                String rank = resultSet.getString("RankID");
+                                entries.put(uuid, rank);
+                            } while (resultSet.next());
+                        }
+                    } catch (SQLException e) {
+                        ErrorReporter.sendReport(ErrorType.MYSQL_QUERY, e);
+                    }
+                })
+        );
+
         return entries;
     }
 

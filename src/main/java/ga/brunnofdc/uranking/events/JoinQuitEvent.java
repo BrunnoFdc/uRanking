@@ -3,8 +3,6 @@ package ga.brunnofdc.uranking.events;
 import ga.brunnofdc.uranking.data.DataManager;
 import ga.brunnofdc.uranking.ranking.RankCacheManager;
 import ga.brunnofdc.uranking.ranking.RankedPlayer;
-import ga.brunnofdc.uranking.uRanking;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,11 +14,8 @@ public class JoinQuitEvent implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        Bukkit.getScheduler().runTaskAsynchronously(uRanking.getInstance(), () -> {
-            RankedPlayer ranked = new RankedPlayer(player);
-            RankCacheManager.storePlayer(player, ranked);
-        });
-
+        RankedPlayer ranked = new RankedPlayer(player);
+        RankCacheManager.storePlayer(player, ranked);
     }
 
     @EventHandler

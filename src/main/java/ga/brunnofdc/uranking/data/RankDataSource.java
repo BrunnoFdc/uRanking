@@ -3,16 +3,15 @@ package ga.brunnofdc.uranking.data;
 import ga.brunnofdc.uranking.ranking.Rank;
 import org.bukkit.entity.HumanEntity;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public abstract class RankDataSource {
 
-    public abstract boolean exists(UUID playeruuid);
+    public abstract void exists(UUID playeruuid, Consumer<Boolean> callback);
 
-    @Nullable
-    public abstract Rank read(UUID playeruuid);
+    protected abstract void read(UUID playeruuid, Consumer<Rank> callback);
 
     public abstract void set(UUID playeruuid, String rankid);
 
@@ -20,15 +19,12 @@ public abstract class RankDataSource {
 
     public abstract void onDisable();
 
-    /* Overloaded methods */
-
-    @Nullable
-    public Rank read(HumanEntity player) {
-        return read(player.getUniqueId());
+    public void read(HumanEntity player, Consumer<Rank> callback) {
+        read(player.getUniqueId(), callback);
     }
 
-    public boolean exists(HumanEntity player) {
-        return exists(player.getUniqueId());
+    public void exists(HumanEntity player, Consumer<Boolean> callback) {
+        exists(player.getUniqueId(), callback);
     }
 
     public void set(HumanEntity player, String rankid) {
