@@ -1,6 +1,5 @@
 package ga.brunnofdc.uranking.ranking;
 
-import ga.brunnofdc.uranking.uRanking;
 import ga.brunnofdc.uranking.utils.exceptions.MaxRankException;
 import ga.brunnofdc.uranking.utils.exceptions.MinRankException;
 import org.bukkit.configuration.file.FileConfiguration;
