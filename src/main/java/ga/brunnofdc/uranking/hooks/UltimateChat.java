@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class UltimateChat implements Listener, Hook {
 
+    //TODO: Modify to use the new abstracted placeholders logic
     @EventHandler
     public void onChat(SendChannelMessageEvent e) {
 
