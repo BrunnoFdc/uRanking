@@ -1,11 +1,15 @@
 name: uRanking
-version: 2.0.1
+version: 2.1.0
 main: ga.brunnofdc.uranking.uRanking
 author: BrunnoFdc
 website: https://github.com/BrunnoFdc/uRanking
 description: 'A ranking plugin that allow people from all permission group to rankup'
 depend: [Vault]
-softdepend: [UltimateChat, Legendchat, MVdWPlaceholderAPI]
+softdepend:
+  - UltimateChat
+  - Legendchat
+  - MVdWPlaceholderAPI
+  - PlaceholderAPI
 commands:
   rankup:
     description: Rank-up your actual rank

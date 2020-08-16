@@ -6,10 +6,8 @@ import ga.brunnofdc.uranking.data.DataManager;
 import ga.brunnofdc.uranking.economy.EconomicUnit;
 import ga.brunnofdc.uranking.economy.units.VaultMoney;
 import ga.brunnofdc.uranking.events.JoinQuitEvent;
-import ga.brunnofdc.uranking.hooks.Hook;
-import ga.brunnofdc.uranking.hooks.Legendchat;
-import ga.brunnofdc.uranking.hooks.MVdWPlugins;
-import ga.brunnofdc.uranking.hooks.UltimateChat;
+import ga.brunnofdc.uranking.hooks.*;
+import ga.brunnofdc.uranking.hooks.placeholderapi.PlaceholderAPIHook;
 import ga.brunnofdc.uranking.lib.Metrics;
 import ga.brunnofdc.uranking.ranking.Rank;
 import ga.brunnofdc.uranking.ranking.RankCacheManager;
@@ -134,6 +132,7 @@ public class uRanking extends JavaPlugin {
         hooks.add(new Legendchat());
         hooks.add(new UltimateChat());
         hooks.add(new MVdWPlugins());
+        hooks.add(new PlaceholderAPIHook());
 
         for(Hook hook : hooks) {
             String relativePlugin = hook.getRelativePlugin();
