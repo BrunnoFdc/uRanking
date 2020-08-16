@@ -6,7 +6,7 @@ To be honest, you do not even need a permissions plugin to use uRanking (However
 
 ### Features:
 - Data storage with MySQL and Flatfile;
-- Native hook with [uChat](https://github.com/FabioZumbi12/UltimateChat), [Legendchat](https://github.com/SubZero0/Legendchat) and [Maximvdw plugins](https://www.spigotmc.org/resources/authors/maximvdw.6687/)!
+- Native hook with [uChat](https://github.com/FabioZumbi12/UltimateChat), [Legendchat](https://github.com/SubZero0/Legendchat), [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) and [Maximvdw plugins](https://www.spigotmc.org/resources/authors/maximvdw.6687/)!
 - You can set commands to be executed when players rank-up;
 - You can configure Titles to be sent to players when they rank-up;
 - You can set-up a rank-up confirmation menu; 
