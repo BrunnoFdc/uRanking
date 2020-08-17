@@ -15,6 +15,7 @@ import ga.brunnofdc.uranking.ranking.RankUtils;
 import ga.brunnofdc.uranking.utils.Language;
 import ga.brunnofdc.uranking.utils.RankMapper;
 import ga.brunnofdc.uranking.utils.SystemDefs;
+import ga.brunnofdc.uranking.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,6 +27,7 @@ import java.util.List;
 
 public class uRanking extends JavaPlugin {
 
+    public static final String GITHUB_REPO_NAME = "BrunnoFdc/uRanking";
     private static final String[] tags = new String[] { "§b[uRanking]§r", "§4[uRanking]§r" };
     private static uRanking instance;
     private EconomicUnit unity;
@@ -57,6 +59,8 @@ public class uRanking extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new Rankup(), this);
 
         Metrics metrics = new Metrics(this, 2122);
+
+        Bukkit.getScheduler().runTaskAsynchronously(this, new UpdateChecker());
 
     }
 
