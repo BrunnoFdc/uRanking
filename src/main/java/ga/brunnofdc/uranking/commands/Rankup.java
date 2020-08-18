@@ -27,7 +27,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public class Rankup implements CommandExecutor, Listener {
-    private static ConfigurationSection guiSec = uRanking.getInstance().getConfig().getConfigurationSection("Rankup-GUI");
+    private static final ConfigurationSection guiSec = uRanking.getInstance().getConfig().getConfigurationSection("Rankup-GUI");
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
