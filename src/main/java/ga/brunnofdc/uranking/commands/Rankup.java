@@ -43,7 +43,6 @@ public class Rankup implements CommandExecutor, Listener {
 
         Player psender = (Player) sender;
         RankedPlayer player = RankCacheManager.getRankedPlayer(psender);
-        EconomicUnit unit = uRanking.getInstance().getEconomicUnit();
 
         if(player == null) {
             psender.sendMessage(Language.getMessage(Message.RANK_NOT_STORED).toArray());

@@ -76,11 +76,11 @@ public class RankedPlayer {
      */
     public void rankUp(Rank specific, boolean sendMessages, boolean takeMoney) {
 
-        EconomicUnit unity = uRanking.getInstance().getEconomicUnit();
+        EconomicUnit unit = uRanking.getInstance().getEconomicUnit();
        
         if(takeMoney) {
-            if(unity.has(player, specific.getPrice())) {
-                unity.withdraw(player, specific.getPrice());
+            if(unit.has(player, specific.getPrice())) {
+                unit.withdraw(player, specific.getPrice());
             } else {
                 player.sendMessage(translateRankupVariables(Language.getMessage(Message.NO_MONEY), this).toArray());
                 return;
