@@ -18,8 +18,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -73,7 +72,7 @@ public class Rankup implements CommandExecutor, Listener {
     }
 
     @EventHandler
-    public void onClickItem(InventoryClickEvent event) {
+    public void onInventoryInteract(InventoryInteractEvent event) {
         InventoryView view = event.getView();
         Player player = (Player) event.getWhoClicked();
         RankedPlayer ranked = RankCacheManager.getRankedPlayer(player);
@@ -84,19 +83,27 @@ public class Rankup implements CommandExecutor, Listener {
                 RankedPlayer.translateRankupVariables(guiSec.getString("Inventory-Name"), ranked));
 
         if(view.getTitle().equals(expectedInvName)) {
-            if(event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT) {
-                if(event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Cancel", ranked))) {
-                    event.getView().close();
-                    player.sendMessage(Language.getMessage(Message.RANKUP_CANCELED).toArray());
-                }
-                if(event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Confirm", ranked))) {
-                    event.getView().close();
-                    ranked.rankUp(true, true);
-                }
-                event.setCancelled(true);
+            event.setCancelled(true);
+
+            if(event instanceof InventoryClickEvent) {
+                onClickItem((InventoryClickEvent) event, ranked);
             }
         }
+    }
 
+    public void onClickItem(InventoryClickEvent event, RankedPlayer rankedPlayer) {
+        Player player = rankedPlayer.getPlayer();
+
+        if (event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT) {
+            if (event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Cancel", rankedPlayer))) {
+                event.getView().close();
+                player.sendMessage(Language.getMessage(Message.RANKUP_CANCELED).toArray());
+            }
+            if (event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Confirm", rankedPlayer))) {
+                event.getView().close();
+                rankedPlayer.rankUp(true, true);
+            }
+        }
     }
 
     private static ItemStack getMenuItemFormatted(String path, RankedPlayer player) {
