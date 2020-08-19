@@ -96,12 +96,14 @@ public class Rankup implements CommandExecutor, Listener {
             Player player = rankedPlayer.getPlayer();
 
             if (event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT) {
-                if (event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Cancel", rankedPlayer))) {
-                    event.getView().close();
+                ItemStack clickedItem = event.getCurrentItem();
+                InventoryView guiView = event.getView();
+                if (clickedItem.isSimilar(getMenuItemFormatted("Item_Cancel", rankedPlayer))) {
+                    guiView.close();
                     player.sendMessage(Language.getMessage(Message.RANKUP_CANCELED).toArray());
                 }
-                if (event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Confirm", rankedPlayer))) {
-                    event.getView().close();
+                if (clickedItem.isSimilar(getMenuItemFormatted("Item_Confirm", rankedPlayer))) {
+                    guiView.close();
                     rankedPlayer.rankUp(true, true);
                 }
             }
