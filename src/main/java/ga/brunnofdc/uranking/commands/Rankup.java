@@ -7,6 +7,7 @@ import ga.brunnofdc.uranking.uRanking;
 import ga.brunnofdc.uranking.utils.Language;
 import ga.brunnofdc.uranking.utils.MiscUtils;
 import ga.brunnofdc.uranking.utils.StringList;
+import ga.brunnofdc.uranking.utils.entities.RankedRunnable;
 import ga.brunnofdc.uranking.utils.enums.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -71,8 +72,7 @@ public class Rankup implements CommandExecutor, Listener {
 
     }
 
-    @EventHandler
-    public void onInventoryInteract(InventoryInteractEvent event) {
+    public void abstractInventoryEventHandler(InventoryInteractEvent event, RankedRunnable action) {
         InventoryView view = event.getView();
         Player player = (Player) event.getWhoClicked();
         RankedPlayer ranked = RankCacheManager.getRankedPlayer(player);
@@ -85,25 +85,27 @@ public class Rankup implements CommandExecutor, Listener {
         if(view.getTitle().equals(expectedInvName)) {
             event.setCancelled(true);
 
-            if(event instanceof InventoryClickEvent) {
-                onClickItem((InventoryClickEvent) event, ranked);
-            }
+            if(action != null)
+                action.run(ranked);
         }
     }
 
-    public void onClickItem(InventoryClickEvent event, RankedPlayer rankedPlayer) {
-        Player player = rankedPlayer.getPlayer();
+    @EventHandler
+    public void onClickItem(InventoryClickEvent event) {
+        abstractInventoryEventHandler(event, rankedPlayer -> {
+            Player player = rankedPlayer.getPlayer();
 
-        if (event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT) {
-            if (event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Cancel", rankedPlayer))) {
-                event.getView().close();
-                player.sendMessage(Language.getMessage(Message.RANKUP_CANCELED).toArray());
+            if (event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT) {
+                if (event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Cancel", rankedPlayer))) {
+                    event.getView().close();
+                    player.sendMessage(Language.getMessage(Message.RANKUP_CANCELED).toArray());
+                }
+                if (event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Confirm", rankedPlayer))) {
+                    event.getView().close();
+                    rankedPlayer.rankUp(true, true);
+                }
             }
-            if (event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Confirm", rankedPlayer))) {
-                event.getView().close();
-                rankedPlayer.rankUp(true, true);
-            }
-        }
+        });
     }
 
     private static ItemStack getMenuItemFormatted(String path, RankedPlayer player) {
