@@ -7,6 +7,7 @@ import ga.brunnofdc.uranking.uRanking;
 import ga.brunnofdc.uranking.utils.Language;
 import ga.brunnofdc.uranking.utils.MiscUtils;
 import ga.brunnofdc.uranking.utils.StringList;
+import ga.brunnofdc.uranking.utils.entities.RankedRunnable;
 import ga.brunnofdc.uranking.utils.enums.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,8 +19,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -27,7 +27,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public class Rankup implements CommandExecutor, Listener {
-    private static ConfigurationSection guiSec = uRanking.getInstance().getConfig().getConfigurationSection("Rankup-GUI");
+    private static final ConfigurationSection guiSec = uRanking.getInstance().getConfig().getConfigurationSection("Rankup-GUI");
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -71,8 +71,7 @@ public class Rankup implements CommandExecutor, Listener {
 
     }
 
-    @EventHandler
-    public void onClickItem(InventoryClickEvent event) {
+    public void abstractInventoryEventHandler(InventoryInteractEvent event, RankedRunnable action) {
         InventoryView view = event.getView();
         Player player = (Player) event.getWhoClicked();
         RankedPlayer ranked = RankCacheManager.getRankedPlayer(player);
@@ -83,19 +82,31 @@ public class Rankup implements CommandExecutor, Listener {
                 RankedPlayer.translateRankupVariables(guiSec.getString("Inventory-Name"), ranked));
 
         if(view.getTitle().equals(expectedInvName)) {
-            if(event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT) {
-                if(event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Cancel", ranked))) {
-                    event.getView().close();
+            event.setCancelled(true);
+
+            if(action != null)
+                action.run(ranked);
+        }
+    }
+
+    @EventHandler
+    public void onClickItem(InventoryClickEvent event) {
+        abstractInventoryEventHandler(event, rankedPlayer -> {
+            Player player = rankedPlayer.getPlayer();
+
+            if (event.getClick() == ClickType.LEFT || event.getClick() == ClickType.RIGHT) {
+                ItemStack clickedItem = event.getCurrentItem();
+                InventoryView guiView = event.getView();
+                if (clickedItem.isSimilar(getMenuItemFormatted("Item_Cancel", rankedPlayer))) {
+                    guiView.close();
                     player.sendMessage(Language.getMessage(Message.RANKUP_CANCELED).toArray());
                 }
-                if(event.getCurrentItem().isSimilar(getMenuItemFormatted("Item_Confirm", ranked))) {
-                    event.getView().close();
-                    ranked.rankUp(true, true);
+                if (clickedItem.isSimilar(getMenuItemFormatted("Item_Confirm", rankedPlayer))) {
+                    guiView.close();
+                    rankedPlayer.rankUp(true, true);
                 }
-                event.setCancelled(true);
             }
-        }
-
+        });
     }
 
     private static ItemStack getMenuItemFormatted(String path, RankedPlayer player) {
