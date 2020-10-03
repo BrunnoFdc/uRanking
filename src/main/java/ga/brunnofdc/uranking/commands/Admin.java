@@ -6,6 +6,7 @@ import ga.brunnofdc.uranking.ranking.RankUtils;
 import ga.brunnofdc.uranking.ranking.RankedPlayer;
 import ga.brunnofdc.uranking.uRanking;
 import ga.brunnofdc.uranking.utils.Language;
+import ga.brunnofdc.uranking.utils.enums.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,6 +16,12 @@ import org.bukkit.entity.Player;
 public class Admin implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+
+        if(!sender.hasPermission("uranking.admin")) {
+            sender.sendMessage(Language.getMessage(Message.NO_PERMISSION).toArray());
+            return false;
+        }
+
         if(args.length > 0) {
 
             if(args[0].equalsIgnoreCase("rankup") || args[0].equalsIgnoreCase("force")) {
