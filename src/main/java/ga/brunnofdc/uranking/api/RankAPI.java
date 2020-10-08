@@ -3,8 +3,8 @@ package ga.brunnofdc.uranking.api;
 import ga.brunnofdc.uranking.ranking.Rank;
 import ga.brunnofdc.uranking.ranking.RankCacheManager;
 import ga.brunnofdc.uranking.ranking.RankUtils;
-import ga.brunnofdc.uranking.utils.exceptions.MaxRankException;
-import ga.brunnofdc.uranking.utils.exceptions.MinRankException;
+import ga.brunnofdc.uranking.exceptions.MaxRankException;
+import ga.brunnofdc.uranking.exceptions.MinRankException;
 import org.bukkit.entity.Player;
 
 public class RankAPI {

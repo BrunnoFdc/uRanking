@@ -1,7 +1,7 @@
 package ga.brunnofdc.uranking.ranking;
 
-import ga.brunnofdc.uranking.utils.exceptions.MaxRankException;
-import ga.brunnofdc.uranking.utils.exceptions.MinRankException;
+import ga.brunnofdc.uranking.exceptions.MaxRankException;
+import ga.brunnofdc.uranking.exceptions.MinRankException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import javax.annotation.Nullable;

@@ -4,13 +4,14 @@ import ga.brunnofdc.uranking.ranking.Rank;
 import ga.brunnofdc.uranking.ranking.RankUtils;
 import ga.brunnofdc.uranking.ranking.RankedPlayer;
 import ga.brunnofdc.uranking.utils.Language;
-import ga.brunnofdc.uranking.utils.enums.SingleLineMessage;
-import ga.brunnofdc.uranking.utils.exceptions.MaxRankException;
-import ga.brunnofdc.uranking.utils.exceptions.MinRankException;
+import ga.brunnofdc.uranking.exceptions.MaxRankException;
+import ga.brunnofdc.uranking.exceptions.MinRankException;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static ga.brunnofdc.uranking.utils.enums.SingleLineMessage.*;
 
 @FunctionalInterface
 public interface PlaceholderConsumer {
@@ -43,7 +44,7 @@ public interface PlaceholderConsumer {
                     Rank rank = RankUtils.getNextRank(player.getRank());
                     return rank.getName();
                 } catch (MaxRankException e) {
-                    return Language.getSingleLineMessage(SingleLineMessage.NO_NEXT_RANK);
+                    return Language.getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
             { "nextrankid", (PlaceholderConsumer) player -> {
@@ -51,7 +52,7 @@ public interface PlaceholderConsumer {
                     Rank rank = RankUtils.getNextRank(player.getRank());
                     return rank.getID();
                 } catch (MaxRankException e) {
-                    return Language.getSingleLineMessage(SingleLineMessage.NO_NEXT_RANK);
+                    return Language.getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
             { "nextrankprefix", (PlaceholderConsumer) player -> {
@@ -59,7 +60,7 @@ public interface PlaceholderConsumer {
                     Rank rank = RankUtils.getNextRank(player.getRank());
                     return String.valueOf(rank.getPrefix());
                 } catch (MaxRankException e) {
-                    return Language.getSingleLineMessage(SingleLineMessage.NO_NEXT_RANK);
+                    return Language.getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
             { "nextrankpos", (PlaceholderConsumer) player -> {
@@ -67,7 +68,7 @@ public interface PlaceholderConsumer {
                     Rank rank = RankUtils.getNextRank(player.getRank());
                     return String.valueOf(rank.getPosition());
                 } catch (MaxRankException e) {
-                    return Language.getSingleLineMessage(SingleLineMessage.NO_NEXT_RANK);
+                    return Language.getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
             { "nextrankprice", (PlaceholderConsumer) player -> {
@@ -75,7 +76,7 @@ public interface PlaceholderConsumer {
                     Rank rank = RankUtils.getNextRank(player.getRank());
                     return String.valueOf(rank.getPrice());
                 } catch (MaxRankException e) {
-                    return Language.getSingleLineMessage(SingleLineMessage.NO_NEXT_RANK);
+                    return Language.getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
             { "oldrankname", (PlaceholderConsumer) player -> {
@@ -83,7 +84,7 @@ public interface PlaceholderConsumer {
                     Rank rank = RankUtils.getOldRank(player.getRank());
                     return rank.getName();
                 } catch (MinRankException e) {
-                    return Language.getSingleLineMessage(SingleLineMessage.NO_NEXT_RANK);
+                    return Language.getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
             { "oldrankid", (PlaceholderConsumer) player -> {
@@ -91,7 +92,7 @@ public interface PlaceholderConsumer {
                     Rank rank = RankUtils.getOldRank(player.getRank());
                     return rank.getID();
                 } catch (MinRankException e) {
-                    return Language.getSingleLineMessage(SingleLineMessage.NO_NEXT_RANK);
+                    return Language.getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
             { "oldrankprefix", (PlaceholderConsumer) player -> {
@@ -99,7 +100,7 @@ public interface PlaceholderConsumer {
                     Rank rank = RankUtils.getOldRank(player.getRank());
                     return rank.getPrefix();
                 } catch (MinRankException e) {
-                    return Language.getSingleLineMessage(SingleLineMessage.NO_NEXT_RANK);
+                    return Language.getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
             { "oldrankpos", (PlaceholderConsumer) player -> {
@@ -107,7 +108,7 @@ public interface PlaceholderConsumer {
                     Rank rank = RankUtils.getOldRank(player.getRank());
                     return String.valueOf(rank.getPosition());
                 } catch (MinRankException e) {
-                    return Language.getSingleLineMessage(SingleLineMessage.NO_NEXT_RANK);
+                    return Language.getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
             { "oldrankprice", (PlaceholderConsumer) player -> {
@@ -115,7 +116,8 @@ public interface PlaceholderConsumer {
                     Rank rank = RankUtils.getOldRank(player.getRank());
                     return String.valueOf(rank.getPrice());
                 } catch (MinRankException e) {
-                    return Language.getSingleLineMessage(SingleLineMessage.NO_NEXT_RANK);
+                    return Language.getSingleLineMessage(NO_NEXT_RANK);
+                }
                 }
             }},
 

@@ -1,13 +1,7 @@
 package ga.brunnofdc.uranking.hooks;
 
 import be.maximvdw.placeholderapi.PlaceholderAPI;
-import ga.brunnofdc.uranking.ranking.Rank;
 import ga.brunnofdc.uranking.ranking.RankCacheManager;
-import ga.brunnofdc.uranking.ranking.RankUtils;
-import ga.brunnofdc.uranking.utils.Language;
-import ga.brunnofdc.uranking.utils.enums.SingleLineMessage;
-import ga.brunnofdc.uranking.utils.exceptions.MaxRankException;
-import ga.brunnofdc.uranking.utils.exceptions.MinRankException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MVdWPlugins implements Hook {

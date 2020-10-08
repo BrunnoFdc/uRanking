@@ -1,4 +1,4 @@
-package ga.brunnofdc.uranking.utils.exceptions;
+package ga.brunnofdc.uranking.exceptions;
 
 public class MaxRankException extends Exception {
 }
