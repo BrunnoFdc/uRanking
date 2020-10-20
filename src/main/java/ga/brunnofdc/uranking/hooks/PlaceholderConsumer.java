@@ -3,6 +3,8 @@ package ga.brunnofdc.uranking.hooks;
 import ga.brunnofdc.uranking.ranking.Rank;
 import ga.brunnofdc.uranking.ranking.RankUtils;
 import ga.brunnofdc.uranking.ranking.RankedPlayer;
+import ga.brunnofdc.uranking.routines.progress.ComputeProgressPercentageRoutine;
+import ga.brunnofdc.uranking.routines.progress.GetPercentageAsTextRoutine;
 import ga.brunnofdc.uranking.utils.Language;
 import ga.brunnofdc.uranking.exceptions.MaxRankException;
 import ga.brunnofdc.uranking.exceptions.MinRankException;
@@ -14,6 +16,7 @@ import java.util.stream.Stream;
 import static ga.brunnofdc.uranking.utils.Language.getSingleLineMessage;
 import static ga.brunnofdc.uranking.utils.enums.SingleLineMessage.*;
 import static java.lang.String.valueOf;
+import static java.util.Optional.ofNullable;
 
 @FunctionalInterface
 public interface PlaceholderConsumer {
@@ -121,14 +124,11 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_OLD_RANK);
                 }
             }},
-            { "progress", (PlaceholderConsumer) player -> {
-                try {
-                    Rank nextRank = RankUtils.getNextRank(player.getRank());
-                    return "";//TODO: Use routines logic
-                } catch (MaxRankException e) {
-                    return getSingleLineMessage(NO_NEXT_RANK);
-                }
-            }},
+            { "progress", (PlaceholderConsumer) player ->
+                    ofNullable(new ComputeProgressPercentageRoutine().compute(player))
+                        .map(new GetPercentageAsTextRoutine())
+                        .orElse(getSingleLineMessage(NO_NEXT_RANK))
+            },
             { "progressbar", (PlaceholderConsumer) player -> {
                 try {
                     Rank nextRank = RankUtils.getNextRank(player.getRank());
