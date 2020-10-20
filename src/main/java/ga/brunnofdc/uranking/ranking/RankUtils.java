@@ -58,7 +58,7 @@ public class RankUtils {
         if(rank.getPosition() < ranksByOrder.size()) {
             return ranksByOrder.get(rank.getPosition() + 1);
         } else {
-            throw new MaxRankException();
+            throw new MaxRankException(rank);
         }
     }
 
@@ -66,7 +66,7 @@ public class RankUtils {
         if(rank.getPosition() > 1) {
             return ranksByOrder.get(rank.getPosition() - 1);
         } else {
-            throw new MinRankException();
+            throw new MinRankException(rank);
         }
     }
 
