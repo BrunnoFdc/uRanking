@@ -5,6 +5,9 @@ import ga.brunnofdc.uranking.ranking.RankCacheManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MVdWPlugins implements Hook {
+
+    public static final String PLACEHOLDER_PREFIX = "uranking_";
+
     @Override
     public String getRelativePlugin() {
         return "MVdWPlaceholderAPI";
@@ -13,10 +16,10 @@ public class MVdWPlugins implements Hook {
     @Override
     public void setupHook(JavaPlugin plugin) {
 
-        PlaceholderConsumer.DEFAULT_PLACEHOLDERS.forEach((placeholder, consumer) ->
+        PlaceholderConsumer.PLACEHOLDERS.forEach((placeholder, consumer) ->
                 PlaceholderAPI.registerPlaceholder(
                     plugin,
-                    "uranking_" + placeholder,
+                    PLACEHOLDER_PREFIX + placeholder,
                     event -> (
                             consumer.getValue(RankCacheManager.getRankedPlayer(event.getPlayer()))
                     )
