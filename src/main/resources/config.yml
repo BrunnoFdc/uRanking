@@ -20,6 +20,14 @@ System-Behaviour:
     Title-Line: "I'm a title! And I can show the new @rank and the @player name this way!"
     Subtitle-Line: "I'm a subtitle! I can show the new @rank and @player name too!"
 
+Misc:
+  Progress-Bar:
+    Character: "|"
+    Character-Amount: 10
+    Color-Actual-Char: '2'
+    Color-Filled: 'a'
+    Color-Remaining: '8'
+
 Rankup-GUI:
   Enable: true
   Inventory-Name: "Confirm your rank-up!"
