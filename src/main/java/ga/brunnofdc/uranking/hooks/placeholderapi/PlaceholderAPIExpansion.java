@@ -1,6 +1,6 @@
 package ga.brunnofdc.uranking.hooks.placeholderapi;
 
-import ga.brunnofdc.uranking.hooks.PlaceholderConsumer;
+import ga.brunnofdc.uranking.hooks.PlaceholderMapper;
 import ga.brunnofdc.uranking.ranking.RankCacheManager;
 import ga.brunnofdc.uranking.ranking.RankedPlayer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -63,10 +63,10 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
             return "";
         }
 
-        if(PlaceholderConsumer.PLACEHOLDERS.containsKey(identifier)) {
-            PlaceholderConsumer consumer = PlaceholderConsumer.PLACEHOLDERS.get(identifier);
+        if(PlaceholderMapper.PLACEHOLDERS.containsKey(identifier)) {
+            PlaceholderMapper mapper = PlaceholderMapper.PLACEHOLDERS.get(identifier);
             RankedPlayer rankedPlayer = RankCacheManager.getRankedPlayer(player);
-            return consumer.getValue(rankedPlayer);
+            return mapper.apply(rankedPlayer);
         } else {
             return null;
         }

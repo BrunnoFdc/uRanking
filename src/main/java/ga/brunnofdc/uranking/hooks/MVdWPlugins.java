@@ -16,12 +16,12 @@ public class MVdWPlugins implements Hook {
     @Override
     public void setupHook(JavaPlugin plugin) {
 
-        PlaceholderConsumer.PLACEHOLDERS.forEach((placeholder, consumer) ->
+        PlaceholderMapper.PLACEHOLDERS.forEach((placeholder, mapper) ->
                 PlaceholderAPI.registerPlaceholder(
                     plugin,
                     PLACEHOLDER_PREFIX + placeholder,
                     event -> (
-                            consumer.getValue(RankCacheManager.getRankedPlayer(event.getPlayer()))
+                            mapper.apply(RankCacheManager.getRankedPlayer(event.getPlayer()))
                     )
                 )
         );

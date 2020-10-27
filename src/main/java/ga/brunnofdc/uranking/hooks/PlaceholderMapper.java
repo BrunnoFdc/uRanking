@@ -4,12 +4,13 @@ import ga.brunnofdc.uranking.ranking.Rank;
 import ga.brunnofdc.uranking.ranking.RankUtils;
 import ga.brunnofdc.uranking.ranking.RankedPlayer;
 import ga.brunnofdc.uranking.routines.progress.ComputeProgressPercentageRoutine;
+import ga.brunnofdc.uranking.routines.progress.GetPercentageAsProgressBarRoutine;
 import ga.brunnofdc.uranking.routines.progress.GetPercentageAsTextRoutine;
-import ga.brunnofdc.uranking.utils.Language;
 import ga.brunnofdc.uranking.exceptions.MaxRankException;
 import ga.brunnofdc.uranking.exceptions.MinRankException;
 
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,33 +19,32 @@ import static ga.brunnofdc.uranking.utils.enums.SingleLineMessage.*;
 import static java.lang.String.valueOf;
 import static java.util.Optional.ofNullable;
 
-@FunctionalInterface
-public interface PlaceholderConsumer {
+public interface PlaceholderMapper extends Function<RankedPlayer, String> {
 
-    String getValue(RankedPlayer player);
+    String apply(RankedPlayer player);
 
-    Map<String, PlaceholderConsumer> PLACEHOLDERS = Stream.of(new Object[][] {
-            { "rankname", (PlaceholderConsumer) player -> {
+    Map<String, PlaceholderMapper> PLACEHOLDERS = Stream.of(new Object[][] {
+            { "rankname", (PlaceholderMapper) player -> {
                 Rank rank = player.getRank();
                 return rank.getName();
             }},
-            { "rankid", (PlaceholderConsumer) player -> {
+            { "rankid", (PlaceholderMapper) player -> {
                 Rank rank = player.getRank();
                 return rank.getID();
             }},
-            { "rankprefix", (PlaceholderConsumer) player -> {
+            { "rankprefix", (PlaceholderMapper) player -> {
                 Rank rank = player.getRank();
                 return rank.getPrefix();
             }},
-            { "rankpos", (PlaceholderConsumer) player -> {
+            { "rankpos", (PlaceholderMapper) player -> {
                 Rank rank = player.getRank();
                 return valueOf(rank.getPosition());
             }},
-            { "rankprice", (PlaceholderConsumer) player -> {
+            { "rankprice", (PlaceholderMapper) player -> {
                 Rank rank = player.getRank();
                 return valueOf(rank.getPrice());
             }},
-            { "nextrankname", (PlaceholderConsumer) player -> {
+            { "nextrankname", (PlaceholderMapper) player -> {
                 try {
                     Rank rank = RankUtils.getNextRank(player.getRank());
                     return rank.getName();
@@ -52,7 +52,7 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
-            { "nextrankid", (PlaceholderConsumer) player -> {
+            { "nextrankid", (PlaceholderMapper) player -> {
                 try {
                     Rank rank = RankUtils.getNextRank(player.getRank());
                     return rank.getID();
@@ -60,7 +60,7 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
-            { "nextrankprefix", (PlaceholderConsumer) player -> {
+            { "nextrankprefix", (PlaceholderMapper) player -> {
                 try {
                     Rank rank = RankUtils.getNextRank(player.getRank());
                     return valueOf(rank.getPrefix());
@@ -68,7 +68,7 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
-            { "nextrankpos", (PlaceholderConsumer) player -> {
+            { "nextrankpos", (PlaceholderMapper) player -> {
                 try {
                     Rank rank = RankUtils.getNextRank(player.getRank());
                     return valueOf(rank.getPosition());
@@ -76,7 +76,7 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
-            { "nextrankprice", (PlaceholderConsumer) player -> {
+            { "nextrankprice", (PlaceholderMapper) player -> {
                 try {
                     Rank rank = RankUtils.getNextRank(player.getRank());
                     return valueOf(rank.getPrice());
@@ -84,7 +84,7 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_NEXT_RANK);
                 }
             }},
-            { "oldrankname", (PlaceholderConsumer) player -> {
+            { "oldrankname", (PlaceholderMapper) player -> {
                 try {
                     Rank rank = RankUtils.getOldRank(player.getRank());
                     return rank.getName();
@@ -92,7 +92,7 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_OLD_RANK);
                 }
             }},
-            { "oldrankid", (PlaceholderConsumer) player -> {
+            { "oldrankid", (PlaceholderMapper) player -> {
                 try {
                     Rank rank = RankUtils.getOldRank(player.getRank());
                     return rank.getID();
@@ -100,7 +100,7 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_OLD_RANK);
                 }
             }},
-            { "oldrankprefix", (PlaceholderConsumer) player -> {
+            { "oldrankprefix", (PlaceholderMapper) player -> {
                 try {
                     Rank rank = RankUtils.getOldRank(player.getRank());
                     return rank.getPrefix();
@@ -108,7 +108,7 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_OLD_RANK);
                 }
             }},
-            { "oldrankpos", (PlaceholderConsumer) player -> {
+            { "oldrankpos", (PlaceholderMapper) player -> {
                 try {
                     Rank rank = RankUtils.getOldRank(player.getRank());
                     return valueOf(rank.getPosition());
@@ -116,7 +116,7 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_OLD_RANK);
                 }
             }},
-            { "oldrankprice", (PlaceholderConsumer) player -> {
+            { "oldrankprice", (PlaceholderMapper) player -> {
                 try {
                     Rank rank = RankUtils.getOldRank(player.getRank());
                     return valueOf(rank.getPrice());
@@ -124,20 +124,16 @@ public interface PlaceholderConsumer {
                     return getSingleLineMessage(NO_OLD_RANK);
                 }
             }},
-            { "progress", (PlaceholderConsumer) player ->
+            { "progress", (PlaceholderMapper) player ->
                     ofNullable(new ComputeProgressPercentageRoutine().compute(player))
                         .map(new GetPercentageAsTextRoutine())
                         .orElse(getSingleLineMessage(NO_NEXT_RANK))
             },
-            { "progressbar", (PlaceholderConsumer) player -> {
-                try {
-                    Rank nextRank = RankUtils.getNextRank(player.getRank());
-                    return "";//TODO: Use routines logic
-                } catch (MaxRankException e) {
-                    return getSingleLineMessage(NO_NEXT_RANK);
-                }
-            }},
+            { "progressbar", (PlaceholderMapper) player -> ofNullable(new ComputeProgressPercentageRoutine().compute(player))
+                        .map(new GetPercentageAsProgressBarRoutine())
+                        .orElse(getSingleLineMessage(NO_NEXT_RANK))
+            },
 
-    }).collect(Collectors.toMap(data -> (String) data[0], data -> (PlaceholderConsumer) data[1]));
+    }).collect(Collectors.toMap(data -> (String) data[0], data -> (PlaceholderMapper) data[1]));
 
 }

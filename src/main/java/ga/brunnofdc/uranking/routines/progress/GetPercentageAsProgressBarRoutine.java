@@ -6,7 +6,6 @@ import java.util.function.Function;
 
 import static ga.brunnofdc.uranking.config.ProgressBarConfig.*;
 import static java.math.BigDecimal.valueOf;
-import static org.bukkit.ChatColor.translateAlternateColorCodes;
 
 public class GetPercentageAsProgressBarRoutine implements Function<Double, String> {
 
@@ -14,15 +13,17 @@ public class GetPercentageAsProgressBarRoutine implements Function<Double, Strin
     public String apply(final Double percentage) {
 
         BigDecimal totalChars = BigDecimal.valueOf(getCharacterAmount());
-        BigDecimal actualCharPosition = totalChars.multiply(valueOf(percentage)).setScale(0 , RoundingMode.HALF_UP);
+        int actualCharPosition = totalChars.multiply(valueOf(percentage))
+                .setScale(0 , RoundingMode.HALF_UP)
+                .intValue();
 
         StringBuilder builder = new StringBuilder();
         for(int i = 0; i < totalChars.intValue(); i++) {
             char color;
 
-            if(i > actualCharPosition.intValue()) {
+            if(i > actualCharPosition) {
                 color = getRemaningColor();
-            } else if(i < actualCharPosition.intValue()) {
+            } else if(i < actualCharPosition) {
                 color = getFilledColor();
             } else {
                 color = getActualCharColor();
@@ -37,7 +38,7 @@ public class GetPercentageAsProgressBarRoutine implements Function<Double, Strin
 
 
     private static String colored(char color, char progressBarCharacter) {
-        return translateAlternateColorCodes(color, String.valueOf(progressBarCharacter));
+        return "§" + color + progressBarCharacter;
     }
 
 }

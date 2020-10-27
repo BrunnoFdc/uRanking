@@ -15,7 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import static ga.brunnofdc.uranking.hooks.PlaceholderConsumer.PLACEHOLDERS;
+import static ga.brunnofdc.uranking.hooks.PlaceholderMapper.PLACEHOLDERS;
 
 public class UltimateChat implements Listener, Hook {
 
@@ -32,8 +32,8 @@ public class UltimateChat implements Listener, Hook {
             setupLegacyHooks(e, rankedPlayer);
 
             //New One
-            PLACEHOLDERS.forEach((placeholder, consumer) ->
-                    e.addTag(PLACEHOLDER_PREFIX + placeholder, consumer.getValue(rankedPlayer)));
+            PLACEHOLDERS.forEach((placeholder, mapper) ->
+                    e.addTag(PLACEHOLDER_PREFIX + placeholder, mapper.apply(rankedPlayer)));
 
         }
     }
