@@ -14,17 +14,16 @@ import static java.math.BigDecimal.valueOf;
 
 public class ComputeProgressPercentageRoutine {
 
-    public Integer compute(RankedPlayer rankedPlayer) {
+    public Double compute(RankedPlayer rankedPlayer) {
 
         try {
             EconomicUnit unit = uRanking.getInstance().getEconomicUnit();
             BigDecimal playerBalance = valueOf(unit.getBalance(rankedPlayer.getPlayer()));
             BigDecimal nextRankPrice = valueOf(RankUtils.getNextRank(rankedPlayer.getRank()).getPrice());
 
-            BigDecimal brutePercentage = playerBalance.divide(nextRankPrice, 2, RoundingMode.HALF_UP);
-            BigDecimal friendlyPercentage = brutePercentage.multiply(valueOf(100));
+            BigDecimal percentage = playerBalance.divide(nextRankPrice, 2, RoundingMode.HALF_UP);
 
-            return min(friendlyPercentage.intValue(), 100);
+            return min(percentage.doubleValue(), 1.0);
         } catch (MaxRankException e) {
             return null;
         }

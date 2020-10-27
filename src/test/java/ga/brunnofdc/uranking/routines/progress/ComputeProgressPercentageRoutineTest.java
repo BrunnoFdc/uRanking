@@ -65,7 +65,7 @@ public class ComputeProgressPercentageRoutineTest {
     public void ok() throws MaxRankException {
         //arrange
         final Rank nextRank = nextRankFixture.get();
-        final Integer expected = 24;
+        final Double expected = 0.24;
 
         PowerMockito.when(RankUtils.getNextRank(eq(actualRank)))
                 .thenReturn(nextRank);
@@ -74,7 +74,7 @@ public class ComputeProgressPercentageRoutineTest {
                 .thenReturn(1200.0);
 
         //act
-        final Integer actual = tested.compute(rankedPlayer);
+        final Double actual = tested.compute(rankedPlayer);
 
         //assert
         assertEquals(expected, actual);
@@ -98,7 +98,7 @@ public class ComputeProgressPercentageRoutineTest {
                 .thenThrow(MaxRankException.class);
 
         //act
-        final Integer actual = tested.compute(rankedPlayer);
+        final Double actual = tested.compute(rankedPlayer);
 
         //assert
         assertNull(actual);
@@ -108,7 +108,7 @@ public class ComputeProgressPercentageRoutineTest {
     public void shouldReturn100WhenPlayerBalanceIsHigherThanPrice() throws MaxRankException {
         //arrange
         final Rank nextRank = nextRankFixture.get();
-        final Integer expected = 100;
+        final Double expected = 1.0;
 
         PowerMockito.when(RankUtils.getNextRank(eq(actualRank)))
                 .thenReturn(nextRank);
@@ -117,7 +117,7 @@ public class ComputeProgressPercentageRoutineTest {
                 .thenReturn(6000.0);
 
         //act
-        final Integer actual = tested.compute(rankedPlayer);
+        final Double actual = tested.compute(rankedPlayer);
 
         //assert
         assertEquals(expected, actual);
@@ -127,7 +127,7 @@ public class ComputeProgressPercentageRoutineTest {
     public void shouldRoundUpWhenPercentageDecimalPlaceIsGreatherThan5() throws MaxRankException {
         //arrange
         final Rank nextRank = nextRankFixture.get();
-        final Integer expected = 26;
+        final Double expected = 0.26;
 
         PowerMockito.when(RankUtils.getNextRank(eq(actualRank)))
                 .thenReturn(nextRank);
@@ -136,7 +136,7 @@ public class ComputeProgressPercentageRoutineTest {
                 .thenReturn(1280.0);
 
         //act
-        final Integer actual = tested.compute(rankedPlayer);
+        final Double actual = tested.compute(rankedPlayer);
 
         //assert
         assertEquals(expected, actual);
@@ -146,7 +146,7 @@ public class ComputeProgressPercentageRoutineTest {
     public void shouldRoundDownWhenPercentageDecimalPlaceIsLessThan5() throws MaxRankException {
         //arrange
         final Rank nextRank = nextRankFixture.get();
-        final Integer expected = 24;
+        final Double expected = 0.24;
 
         PowerMockito.when(RankUtils.getNextRank(eq(actualRank)))
                 .thenReturn(nextRank);
@@ -155,7 +155,7 @@ public class ComputeProgressPercentageRoutineTest {
                 .thenReturn(1220.0);
 
         //act
-        final Integer actual = tested.compute(rankedPlayer);
+        final Double actual = tested.compute(rankedPlayer);
 
         //assert
         assertEquals(expected, actual);
