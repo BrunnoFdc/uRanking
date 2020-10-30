@@ -1,7 +1,7 @@
 package ga.brunnofdc.uranking.ranking;
 
-import ga.brunnofdc.uranking.utils.exceptions.MaxRankException;
-import ga.brunnofdc.uranking.utils.exceptions.MinRankException;
+import ga.brunnofdc.uranking.exceptions.MaxRankException;
+import ga.brunnofdc.uranking.exceptions.MinRankException;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import javax.annotation.Nullable;
@@ -58,7 +58,7 @@ public class RankUtils {
         if(rank.getPosition() < ranksByOrder.size()) {
             return ranksByOrder.get(rank.getPosition() + 1);
         } else {
-            throw new MaxRankException();
+            throw new MaxRankException(rank);
         }
     }
 
@@ -66,7 +66,7 @@ public class RankUtils {
         if(rank.getPosition() > 1) {
             return ranksByOrder.get(rank.getPosition() - 1);
         } else {
-            throw new MinRankException();
+            throw new MinRankException(rank);
         }
     }
 

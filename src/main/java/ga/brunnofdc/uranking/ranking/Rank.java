@@ -22,7 +22,6 @@ public class Rank implements Comparable<Rank> {
         this.prefix = prefix;
     }
 
-
     public int getPosition() {
         return this.position;
     }
@@ -60,4 +59,5 @@ public class Rank implements Comparable<Rank> {
     public int compareTo(Rank rank) {
         return Integer.compare(this.getPosition(), rank.getPosition());
     }
+
 }

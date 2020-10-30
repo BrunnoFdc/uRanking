@@ -30,7 +30,7 @@ public class uRanking extends JavaPlugin {
     public static final String GITHUB_REPO_NAME = "BrunnoFdc/uRanking";
     private static final String[] tags = new String[] { "§b[uRanking]§r", "§4[uRanking]§r" };
     private static uRanking instance;
-    private EconomicUnit unity;
+    private EconomicUnit unit;
 
     public void onEnable() {
 
@@ -39,7 +39,7 @@ public class uRanking extends JavaPlugin {
         setupConfig();
 
         //TODO: Make dynamic
-        unity = new VaultMoney();
+        unit = new VaultMoney();
 
         SystemDefs.loadProps(getConfig());
         RankUtils.loadRanks(getConfig());
@@ -149,7 +149,7 @@ public class uRanking extends JavaPlugin {
     }
 
     public EconomicUnit getEconomicUnit() {
-        return this.unity;
+        return this.unit;
     }
 
     public static uRanking getInstance() {

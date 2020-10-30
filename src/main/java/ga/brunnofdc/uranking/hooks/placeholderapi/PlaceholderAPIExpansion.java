@@ -1,6 +1,6 @@
 package ga.brunnofdc.uranking.hooks.placeholderapi;
 
-import ga.brunnofdc.uranking.hooks.PlaceholderConsumer;
+import ga.brunnofdc.uranking.hooks.PlaceholderMapper;
 import ga.brunnofdc.uranking.ranking.RankCacheManager;
 import ga.brunnofdc.uranking.ranking.RankedPlayer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -9,6 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 public class PlaceholderAPIExpansion extends PlaceholderExpansion {
+
+    public static final String PLACEHOLDER_PREFIX = "uranking";
 
     private JavaPlugin pluginInstance;
 
@@ -41,7 +43,7 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getIdentifier() {
-        return "uranking";
+        return PLACEHOLDER_PREFIX;
     }
 
     @Override
@@ -61,10 +63,10 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
             return "";
         }
 
-        if(PlaceholderConsumer.DEFAULT_PLACEHOLDERS.containsKey(identifier)) {
-            PlaceholderConsumer consumer = PlaceholderConsumer.DEFAULT_PLACEHOLDERS.get(identifier);
+        if(PlaceholderMapper.PLACEHOLDERS.containsKey(identifier)) {
+            PlaceholderMapper mapper = PlaceholderMapper.PLACEHOLDERS.get(identifier);
             RankedPlayer rankedPlayer = RankCacheManager.getRankedPlayer(player);
-            return consumer.getValue(rankedPlayer);
+            return mapper.apply(rankedPlayer);
         } else {
             return null;
         }

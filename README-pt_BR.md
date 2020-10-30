@@ -15,5 +15,8 @@ Um plugin de rankup que possibilita que os jogadores upem de rank sem perder o c
 - /rankup - uranking.rankup - Upar o rank atual, comando para jogadores;
 - /uranking - uranking.admin - Comandos administrativos.
 
+### Placeholders:
+> Acesse: [Página de placeholders (Apenas em inglês)](./docs/placeholders.md)
+
 ### Informações adicionais:
 - A única dependência do uRanking é o plugin [Vault](https://dev.bukkit.org/projects/vault) e algum plugin de economia. 
